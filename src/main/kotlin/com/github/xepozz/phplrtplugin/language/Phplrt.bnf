@@ -11,6 +11,8 @@
   elementTypeHolderClass="com.github.xepozz.phplrtplugin.psi.PhplrtTypes"
   elementTypeClass="com.github.xepozz.phplrtplugin.psi.PhplrtElementType"
   tokenTypeClass="com.github.xepozz.phplrtplugin.psi.PhplrtTokenType"
+
+  psiImplUtilClass="com.github.xepozz.phplrtplugin.psi.impl.PhplrtPsiImplUtil"
 }
 
 phplrtFile ::= item_*
@@ -18,10 +20,30 @@ phplrtFile ::= item_*
 private item_ ::= (tokenDecl|skipDecl|ruleDecl|COMMENT|CRLF)
 
 tokenDecl ::= (TOKEN IDENTIFIER VALUE)
+{
+    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+    implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
+    methods=[getKey getName setName getValue setValue getNameIdentifier]
+}
 skipDecl ::= (SKIP IDENTIFIER VALUE)
+{
+    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+    implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
+    methods=[getKey getName setName getValue setValue getNameIdentifier]
+}
 ruleDecl ::= (ruleModifier? IDENTIFIER COLON expression+ SEMICOLON)
 expression ::= ((tokenReference | ruleReference | expression) (operator expression)?)
 ruleReference ::= (IDENTIFIER SQUARES)
+{
+    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+    implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
+    methods=[getKey getName setName getValue setValue getNameIdentifier]
+}
 tokenReference ::= (DOUBLE_COLON IDENTIFIER DOUBLE_COLON) | (LEFT_ARROW IDENTIFIER RIGHT_ARROW)
+{
+    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+    implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
+    methods=[getKey getName setName getValue setValue getNameIdentifier]
+}
 operator ::= (OP_OR)
 ruleModifier ::= (RULE_MODIFIER_HIDDEN)

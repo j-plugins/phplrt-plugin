@@ -30,12 +30,12 @@ class PhplrtSyntaxHighlighter : SyntaxHighlighterBase() {
     }
 
     companion object {
-        val SQUARES = TextAttributesKey.createTextAttributesKey("PHPLRT_IDENTIFIER", DefaultLanguageHighlighterColors.BRACKETS)
-        val COLON = TextAttributesKey.createTextAttributesKey("PHPLRT_IDENTIFIER", DefaultLanguageHighlighterColors.SEMICOLON)
+        val SQUARES = TextAttributesKey.createTextAttributesKey("PHPLRT_BRACKETS", DefaultLanguageHighlighterColors.BRACKETS)
+        val COLON = TextAttributesKey.createTextAttributesKey("PHPLRT_SEMICOLON", DefaultLanguageHighlighterColors.SEMICOLON)
         val IDENTIFIER = TextAttributesKey.createTextAttributesKey("PHPLRT_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER)
         val KEY = TextAttributesKey.createTextAttributesKey("PHPLRT_KEY", DefaultLanguageHighlighterColors.KEYWORD)
         val VALUE = TextAttributesKey.createTextAttributesKey("PHPLRT_VALUE", DefaultLanguageHighlighterColors.STRING)
-        val BLOCK_COMMENT = TextAttributesKey.createTextAttributesKey("PHPLRT_VALUE", DefaultLanguageHighlighterColors.BLOCK_COMMENT)
+        val BLOCK_COMMENT = TextAttributesKey.createTextAttributesKey("PHPLRT_BLOCK_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT)
         val COMMENT =
             TextAttributesKey.createTextAttributesKey("PHPLRT_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT)
         val BAD_CHARACTER =

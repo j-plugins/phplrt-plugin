@@ -21,7 +21,18 @@
         <lang.syntaxHighlighterFactory
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtSyntaxHighlighterFactory"/>
-
+        <psi.referenceContributor
+                language="Phplrt"
+                implementation="com.github.xepozz.phplrtplugin.support.TokenReferenceReferenceContributor"/>
+        <lang.findUsagesProvider
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtFindUsagesProvider"/>
+        <lang.commenter
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCommenter"/>
+        <completion.contributor
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCompletionContributor"/>
 
 
         <toolWindow factoryClass="com.github.xepozz.phplrtplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
@@ -29,6 +40,7 @@
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.xepozz.phplrtplugin.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <listener class="com.github.xepozz.phplrtplugin.listeners.MyApplicationActivationListener"
+                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
 </idea-plugin>
