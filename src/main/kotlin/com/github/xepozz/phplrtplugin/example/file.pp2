@@ -1,0 +1,36 @@
+%skip  T_WHITESPACE     \s+
+
+%token T_DIGIT          \-?\d+
+%token T_PLUS           \+
+%token T_MINUS          \-
+%token T_DIV            /
+%token T_MUL            \*
+
+#Expression
+  : Operation()
+  ;
+
+Operation
+  : <T_DIGIT> (
+      Addition() |
+      Division() |
+      Subtraction() |
+      Multiplication()
+    )?
+  ;
+
+#Addition
+  : ::T_PLUS:: Operation()
+  ;
+
+#Division
+  : ::T_DIV:: Operation()
+  ;
+
+#Subtraction
+  : ::T_MINUS:: Operation()
+  ;
+
+#Multiplication
+  : ::T_MUL:: Operation()
+  ;

@@ -1,0 +1,26 @@
+{
+  parserClass="com.github.xepozz.phplrtplugin.language.PhplrtParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Phplrt"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.github.xepozz.phplrtplugin.psi"
+  psiImplPackage="com.github.xepozz.phplrtplugin.psi.impl"
+
+  elementTypeHolderClass="com.github.xepozz.phplrtplugin.psi.PhplrtTypes"
+  elementTypeClass="com.github.xepozz.phplrtplugin.psi.PhplrtElementType"
+  tokenTypeClass="com.github.xepozz.phplrtplugin.psi.PhplrtTokenType"
+}
+
+phplrtFile ::= item_*
+
+private item_ ::= (tokenDecl|skipDecl|ruleDecl|COMMENT|CRLF)
+
+tokenDecl ::= (TOKEN IDENTIFIER VALUE)
+skipDecl ::= (SKIP IDENTIFIER VALUE)
+ruleDecl ::= (RULE COLON expression+ SEMICOLON)
+expression ::= ((tokenReference | ruleReference) (operator expression)?)
+ruleReference ::= (IDENTIFIER SQUARES)
+tokenReference ::= (DOUBLE_COLON IDENTIFIER DOUBLE_COLON)|(LEFT_ARROW IDENTIFIER RIGHT_ARROW)
+operator ::= (OP_OR)
