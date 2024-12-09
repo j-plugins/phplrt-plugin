@@ -17,38 +17,49 @@
 
 phplrtFile ::= item_*
 
-private item_ ::= (tokenDecl|skipDecl|ruleDecl|COMMENT|CRLF)
+private item_ ::= (metaDecl|ruleDecl|COMMENT)
 
-tokenDecl ::= (TOKEN IDENTIFIER VALUE)
-//{
-//    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
-//    implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
-//    methods=[getName setName getValue setValue getNameIdentifier]
-//}
-skipDecl ::= (SKIP IDENTIFIER VALUE)
-//{
-//    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
-//    implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
-//    methods=[getName setName getValue setValue getNameIdentifier]
-//}
-ruleDecl ::= (ruleModifier? IDENTIFIER COLON expression SEMICOLON)
-//{
-//    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
-//    implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
-//    methods=[getName setName getValue setValue getNameIdentifier]
-//}
-expression ::= ((tokenReference | ruleReference | expression) (operator expression)*)+
-ruleReference ::= (IDENTIFIER SQUARES)
+metaDecl ::= (META_START (TOKEN|SKIP|PRAGMA) identifier VALUE NEWLINE)
 {
+    pin=1
     mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
-    implements=["com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement" "com.intellij.model.psi.PsiExternalReferenceHost"]
-    methods=[getName setName getValue setValue getNameIdentifier]
+    implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
+    methods=[getName setName getNameIdentifier]
 }
-tokenReference ::= ((DOUBLE_COLON IDENTIFIER DOUBLE_COLON) | (LEFT_ARROW IDENTIFIER RIGHT_ARROW))
+ruleDecl ::= (ruleModifier? identifier COLON expressions SEMICOLON)
 {
-    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
-    implements=["com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement" "com.intellij.model.psi.PsiExternalReferenceHost"]
-    methods=[getName setName getValue setValue getNameIdentifier]
+    pin=3
+//    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+//    implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
+//    methods=[getName setName getValue setValue getNameIdentifier]
 }
-operator ::= (OP_OR)
-ruleModifier ::= (RULE_MODIFIER_HIDDEN)
+expressions ::= expression (operator? expression)*
+expression ::= tokenReference | ruleReference
+ruleReference ::= identifier PARENTHESES_OPEN PARENTHESES_CLOSE
+//{
+//    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+//    implements=["com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement" "com.intellij.model.psi.PsiExternalReferenceHost"]
+//    methods=[getName setName getNameIdentifier]
+//}
+tokenReference ::= hiddenTokenReference | visibleTokenReference
+//{
+//    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+//    implements=["com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"]
+//    methods=[getName setName getNameIdentifier]
+//}
+private hiddenTokenReference ::= (DOUBLE_COLON identifier DOUBLE_COLON)
+{
+    pin=2
+}
+private visibleTokenReference ::= (LEFT_ARROW identifier RIGHT_ARROW)
+{
+    pin=2
+}
+identifier ::= LITERAL
+//{
+//    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+//    implements=["com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement" "com.intellij.model.psi.PsiExternalReferenceHost"]
+//    methods=[getName setName getNameIdentifier]
+//}
+operator ::= OP_OR
+ruleModifier ::= RULE_MODIFIER_HIDDEN

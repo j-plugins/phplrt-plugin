@@ -23,16 +23,23 @@
                 implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtSyntaxHighlighterFactory"/>
         <psi.referenceContributor
                 language="Phplrt"
-                implementation="com.github.xepozz.phplrtplugin.support.TokenReferenceReferenceContributor"/>
-<!--        <lang.findUsagesProvider-->
-<!--                language="Phplrt"-->
-<!--                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtFindUsagesProvider"/>-->
+                implementation="com.github.xepozz.phplrtplugin.support.TokenReferenceReferenceContributor"
+                order="first"
+        />
+        <stubElementTypeHolder class="com.github.xepozz.phplrtplugin.psi.PhplrtTypes" externalIdPrefix=""/>
+
+        <lang.braceMatcher
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtBraceMatcher"/>
+                <lang.findUsagesProvider
+                        language="Phplrt"
+                        implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtFindUsagesProvider"/>
         <lang.commenter
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCommenter"/>
-<!--        <completion.contributor-->
-<!--                language="Phplrt"-->
-<!--                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCompletionContributor"/>-->
+        <completion.contributor
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCompletionContributor"/>
 
 
         <toolWindow factoryClass="com.github.xepozz.phplrtplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>

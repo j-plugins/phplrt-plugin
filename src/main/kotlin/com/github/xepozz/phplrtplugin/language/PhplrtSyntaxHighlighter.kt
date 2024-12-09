@@ -19,10 +19,15 @@ class PhplrtSyntaxHighlighter : SyntaxHighlighterBase() {
         PhplrtTypes.DOUBLE_COLON -> BRACES_KEYS
         PhplrtTypes.LEFT_ARROW -> BRACES_KEYS
         PhplrtTypes.RIGHT_ARROW -> BRACES_KEYS
-        PhplrtTypes.SQUARES -> BRACKETS_KEYS
+        PhplrtTypes.PARENTHESES_OPEN -> PARENTHESES_KEYS
+        PhplrtTypes.PARENTHESES_CLOSE -> PARENTHESES_KEYS
         PhplrtTypes.RULE_MODIFIER -> KEY_KEYS
+
+        PhplrtTypes.META_START -> KEY_KEYS
         PhplrtTypes.TOKEN -> KEY_KEYS
+        PhplrtTypes.PRAGMA -> KEY_KEYS
         PhplrtTypes.SKIP -> KEY_KEYS
+
         PhplrtTypes.VALUE -> VALUE_KEYS
         PhplrtTypes.COMMENT -> COMMENT_KEYS
         TokenType.BAD_CHARACTER -> BAD_CHAR_KEYS
@@ -39,6 +44,9 @@ class PhplrtSyntaxHighlighter : SyntaxHighlighterBase() {
         )
         private val BRACKETS_KEYS = arrayOf(
             DefaultLanguageHighlighterColors.BRACKETS
+        )
+        private val PARENTHESES_KEYS = arrayOf(
+            DefaultLanguageHighlighterColors.PARENTHESES
         )
         private val KEY_KEYS = arrayOf(
             DefaultLanguageHighlighterColors.KEYWORD

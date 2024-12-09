@@ -15,48 +15,54 @@ import com.intellij.psi.TokenType;
 %eof{  return;
 %eof}
 
-CRLF=\R
-COLON=:
-RULE_MODIFIER_HIDDEN=#
-SEMICOLON=;
-DOUBLE_COLON=::
+META_START="%"
+COLON=":"
+DOUBLE_COLON="::"
+SHARP="#"
+SEMICOLON=";"
 LEFT_ARROW="<"
-RIGHT_ARROW=>
-RIGHT_ARROW=>
-OP_OR=\|
-SQUARES=\(\)
-RULE=[a-zA-Z_]+
-WHITE_SPACE=[\ \s\t\h]
-VALUE=[^\s\h\t ][^\n]*
-IDENTIFIER=[a-zA-Z_]+
+RIGHT_ARROW=">"
+OP_OR="|"
+PARENTHESES_OPEN=\(
+PARENTHESES_CLOSE=\)
+NEWLINE=\r|\n|\r\n
+WHITE_SPACE=[ \s\t\h]
+VALUE=[^\s\h\t \r][^\n]*
+LITERAL=[a-zA-Z_]+
 END_OF_LINE_COMMENT="//"[^\n]*[^\n]?
 MULTILINE_COMMENT=\/\*\*[\s\S]*?\*\/
 
 %state WAITING_VALUE
-%state WAITING_IDENTIFIER
+%state WAITING_LITERAL
+%state WAITING_META
 
 %%
 <YYINITIAL> {
-    "%token"                                                     { yybegin(WAITING_IDENTIFIER); return PhplrtTypes.TOKEN; }
-    "%skip"                                                      { yybegin(WAITING_IDENTIFIER); return PhplrtTypes.SKIP; }
+    {META_START}                                                { yybegin(WAITING_META); return PhplrtTypes.META_START; }
+}
+<WAITING_META> {
+    "token"                                                     { yybegin(WAITING_LITERAL); return PhplrtTypes.TOKEN; }
+    "skip"                                                      { yybegin(WAITING_LITERAL); return PhplrtTypes.SKIP; }
+    "pragma"                                                    { yybegin(WAITING_LITERAL); return PhplrtTypes.PRAGMA; }
 }
 
-<YYINITIAL> {RULE_MODIFIER_HIDDEN}                               { return PhplrtTypes.RULE_MODIFIER_HIDDEN; }
+<YYINITIAL> {SHARP}                                              { return PhplrtTypes.RULE_MODIFIER_HIDDEN; }
 <YYINITIAL> {END_OF_LINE_COMMENT}                                { yybegin(YYINITIAL); return PhplrtTypes.COMMENT; }
 <YYINITIAL> {MULTILINE_COMMENT}                                  { yybegin(YYINITIAL); return PhplrtTypes.COMMENT; }
-<YYINITIAL> ({CRLF}{WHITE_SPACE}?)+                              { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
+<YYINITIAL> {NEWLINE}                                            { yybegin(YYINITIAL); return PhplrtTypes.NEWLINE; }
+{WHITE_SPACE}+                                                   { return TokenType.WHITE_SPACE; }
 
-
-<WAITING_IDENTIFIER> {IDENTIFIER}                                { yybegin(WAITING_VALUE); return PhplrtTypes.IDENTIFIER; }
+<WAITING_LITERAL> {LITERAL}                                      { yybegin(WAITING_VALUE); return PhplrtTypes.LITERAL; }
 <WAITING_VALUE> {WHITE_SPACE}+                                   { return TokenType.WHITE_SPACE; }
 <WAITING_VALUE> {VALUE}                                          { yybegin(YYINITIAL); return PhplrtTypes.VALUE; }
 
-{WHITE_SPACE}+                                                   { return TokenType.WHITE_SPACE; }
-{IDENTIFIER}                                                     { return PhplrtTypes.IDENTIFIER; }
+
+{LITERAL}                                                        { return PhplrtTypes.LITERAL; }
 {COLON}                                                          { return PhplrtTypes.COLON; }
 {SEMICOLON}                                                      { return PhplrtTypes.SEMICOLON; }
 {OP_OR}                                                          { return PhplrtTypes.OP_OR; }
-{SQUARES}                                                        { return PhplrtTypes.SQUARES; }
+{PARENTHESES_OPEN}                                               { return PhplrtTypes.PARENTHESES_OPEN; }
+{PARENTHESES_CLOSE}                                              { return PhplrtTypes.PARENTHESES_CLOSE; }
 {DOUBLE_COLON}                                                   { return PhplrtTypes.DOUBLE_COLON; }
 {LEFT_ARROW}                                                     { return PhplrtTypes.LEFT_ARROW; }
 {RIGHT_ARROW}                                                    { return PhplrtTypes.RIGHT_ARROW; }

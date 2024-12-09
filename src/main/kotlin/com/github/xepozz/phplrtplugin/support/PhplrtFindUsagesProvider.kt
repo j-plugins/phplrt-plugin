@@ -10,14 +10,14 @@ import com.intellij.psi.PsiNamedElement
 import com.intellij.psi.tree.TokenSet
 
 class PhplrtFindUsagesProvider : FindUsagesProvider {
-    override fun getWordsScanner(): WordsScanner {
-        return DefaultWordsScanner(
-            PhplrtLexerAdapter(),
-            PhplrtTokenSets.IDENTIFIERS,
-            PhplrtTokenSets.COMMENTS,
-            TokenSet.EMPTY
-        )
-    }
+    override fun getWordsScanner() = DefaultWordsScanner(
+        PhplrtLexerAdapter(),
+        PhplrtTokenSets.IDENTIFIERS,
+        PhplrtTokenSets.COMMENTS,
+        TokenSet.EMPTY,
+        PhplrtTokenSets.OPERATORS,
+        PhplrtTokenSets.KEYWORDS,
+    )
 
     override fun canFindUsagesFor(psiElement: PsiElement): Boolean {
         return psiElement is PsiNamedElement
