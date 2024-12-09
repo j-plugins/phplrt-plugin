@@ -15,34 +15,19 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 
 internal class PhplrtParserDefinition : ParserDefinition {
+    override fun createLexer(project: Project) = PhplrtLexerAdapter()
 
-    override fun createLexer(project: Project): Lexer {
-        return PhplrtLexerAdapter()
-    }
+    override fun getCommentTokens() = PhplrtTokenSets.COMMENTS
 
-    override fun getCommentTokens(): TokenSet {
-        return PhplrtTokenSets.COMMENTS
-    }
+    override fun getStringLiteralElements() = TokenSet.EMPTY
 
-    override fun getStringLiteralElements(): TokenSet {
-        return TokenSet.EMPTY
-    }
+    override fun createParser(project: Project?) = PhplrtParser()
 
-    override fun createParser(project: Project?): PsiParser {
-        return PhplrtParser()
-    }
+    override fun getFileNodeType() = FILE
 
-    override fun getFileNodeType(): IFileElementType {
-        return FILE
-    }
+    override fun createFile(viewProvider: FileViewProvider) = PhplrtFile(viewProvider)
 
-    override fun createFile(viewProvider: FileViewProvider): PsiFile {
-        return PhplrtFile(viewProvider)
-    }
-
-    override fun createElement(node: ASTNode): PsiElement {
-        return PhplrtTypes.Factory.createElement(node)
-    }
+    override fun createElement(node: ASTNode) = PhplrtTypes.Factory.createElement(node)
 
     companion object {
         val FILE = IFileElementType(PhplrtLanguage.INSTANCE)

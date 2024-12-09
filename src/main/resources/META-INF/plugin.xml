@@ -24,15 +24,15 @@
         <psi.referenceContributor
                 language="Phplrt"
                 implementation="com.github.xepozz.phplrtplugin.support.TokenReferenceReferenceContributor"/>
-        <lang.findUsagesProvider
-                language="Phplrt"
-                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtFindUsagesProvider"/>
+<!--        <lang.findUsagesProvider-->
+<!--                language="Phplrt"-->
+<!--                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtFindUsagesProvider"/>-->
         <lang.commenter
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCommenter"/>
-        <completion.contributor
-                language="Phplrt"
-                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCompletionContributor"/>
+<!--        <completion.contributor-->
+<!--                language="Phplrt"-->
+<!--                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCompletionContributor"/>-->
 
 
         <toolWindow factoryClass="com.github.xepozz.phplrtplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>

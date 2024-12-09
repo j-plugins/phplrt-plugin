@@ -18,12 +18,12 @@ import com.intellij.psi.TokenType;
 CRLF=\R
 COLON=:
 RULE_MODIFIER_HIDDEN=#
-SEMICOLON=";"
-DOUBLE_COLON="::"
+SEMICOLON=;
+DOUBLE_COLON=::
 LEFT_ARROW="<"
-RIGHT_ARROW=">"
-RIGHT_ARROW=">"
-OP_OR="|"
+RIGHT_ARROW=>
+RIGHT_ARROW=>
+OP_OR=\|
 SQUARES=\(\)
 RULE=[a-zA-Z_]+
 WHITE_SPACE=[\ \s\t\h]

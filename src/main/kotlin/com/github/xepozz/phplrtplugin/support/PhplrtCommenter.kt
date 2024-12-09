@@ -3,23 +3,13 @@ package com.github.xepozz.phplrtplugin.support
 import com.intellij.lang.Commenter
 
 internal class PhplrtCommenter : Commenter {
-    public override fun getLineCommentPrefix(): String {
-        return "//"
-    }
+    override fun getLineCommentPrefix() = "//"
 
-    public override fun getBlockCommentPrefix(): String {
-        return "/**"
-    }
+    override fun getBlockCommentPrefix() = "/**"
 
-    public override fun getBlockCommentSuffix(): String? {
-        return "*/"
-    }
+    override fun getBlockCommentSuffix() = "*/"
 
-    public override fun getCommentedBlockCommentPrefix(): String? {
-        return null
-    }
+    override fun getCommentedBlockCommentPrefix() = null
 
-    public override fun getCommentedBlockCommentSuffix(): String? {
-        return null
-    }
+    override fun getCommentedBlockCommentSuffix() = null
 }

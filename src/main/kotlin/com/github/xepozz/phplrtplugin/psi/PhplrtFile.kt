@@ -7,11 +7,7 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 
 class PhplrtFile(viewProvider: FileViewProvider) : PsiFileBase(viewProvider, PhplrtLanguage.INSTANCE) {
-    override fun getFileType(): FileType {
-        return PhplrtFileType.INSTANCE
-    }
+    override fun getFileType() = PhplrtFileType.INSTANCE
 
-    override fun toString(): String {
-        return "Phplrt File"
-    }
+    override fun toString() = "Phplrt File"
 }
