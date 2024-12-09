@@ -1,6 +1,6 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.xepozz.phplrtplugin</id>
+    <id>com.github.xepozz.phplrt</id>
     <name>Phplrt Plug-In</name>
     <vendor>xepozz</vendor>
 
@@ -23,7 +23,7 @@
                 implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtSyntaxHighlighterFactory"/>
         <psi.referenceContributor
                 language="Phplrt"
-                implementation="com.github.xepozz.phplrtplugin.support.TokenReferenceReferenceContributor"
+                implementation="com.github.xepozz.phplrtplugin.support.PhplrtReferenceContributor"
                 order="first"
         />
         <stubElementTypeHolder class="com.github.xepozz.phplrtplugin.psi.PhplrtTypes" externalIdPrefix=""/>
