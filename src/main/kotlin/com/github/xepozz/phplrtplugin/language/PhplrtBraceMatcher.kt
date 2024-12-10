@@ -8,7 +8,8 @@ import com.intellij.psi.tree.IElementType
 
 class PhplrtBraceMatcher : PairedBraceMatcher {
     private val bracePairs = arrayOf(
-        BracePair(PhplrtTypes.PARENTHESES_OPEN, PhplrtTypes.PARENTHESES_CLOSE, false),
+        BracePair(PhplrtTypes.LEFT_ARROW, PhplrtTypes.RIGHT_ARROW, true),
+        BracePair(PhplrtTypes.PARENTHESES_OPEN, PhplrtTypes.PARENTHESES_CLOSE, true),
         BracePair(PhplrtTypes.DOUBLE_COLON, PhplrtTypes.DOUBLE_COLON, true),
     )
 

@@ -17,7 +17,7 @@
 
 phplrtFile ::= item_*
 
-private item_ ::= (metaDecl|ruleDecl|COMMENT)
+private item_ ::= (metaDecl|ruleDecl|COMMENT|NEWLINE)
 
 metaDecl ::= (META_START (TOKEN|SKIP|PRAGMA) identifier VALUE NEWLINE)
 {

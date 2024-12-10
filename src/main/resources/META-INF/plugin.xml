@@ -31,9 +31,12 @@
         <lang.braceMatcher
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtBraceMatcher"/>
-                <lang.findUsagesProvider
-                        language="Phplrt"
-                        implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtFindUsagesProvider"/>
+        <lang.findUsagesProvider
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtFindUsagesProvider"/>
+        <lang.psiStructureViewFactory
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtPsiStructureViewFactory"/>
         <lang.commenter
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCommenter"/>
