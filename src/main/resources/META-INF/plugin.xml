@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.xepozz.phplrtplugin</id>
-    <name>phplrt-plugin</name>
+    <id>com.github.xepozz.phplrt</id>
+    <name>Phplrt Plug-In</name>
     <vendor>xepozz</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -9,10 +9,45 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
+        <fileType
+                name="Phplrt File"
+                implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtFileType"
+                fieldName="INSTANCE"
+                language="Phplrt"
+                extensions="pp2"/>
+        <lang.parserDefinition
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtSyntaxHighlighterFactory"/>
+        <psi.referenceContributor
+                language="Phplrt"
+                implementation="com.github.xepozz.phplrtplugin.support.PhplrtReferenceContributor"
+                order="first"
+        />
+        <stubElementTypeHolder class="com.github.xepozz.phplrtplugin.psi.PhplrtTypes" externalIdPrefix=""/>
+
+        <lang.braceMatcher
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtBraceMatcher"/>
+                <lang.findUsagesProvider
+                        language="Phplrt"
+                        implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtFindUsagesProvider"/>
+        <lang.commenter
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCommenter"/>
+        <completion.contributor
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCompletionContributor"/>
+
+
         <toolWindow factoryClass="com.github.xepozz.phplrtplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.xepozz.phplrtplugin.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <listener class="com.github.xepozz.phplrtplugin.listeners.MyApplicationActivationListener"
+                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
 </idea-plugin>
