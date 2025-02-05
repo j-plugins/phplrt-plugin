@@ -11,39 +11,39 @@
     <extensions defaultExtensionNs="com.intellij">
         <fileType
                 name="Phplrt File"
-                implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtFileType"
+                implementationClass="com.github.xepozz.phplrt.language.PhplrtFileType"
                 fieldName="INSTANCE"
                 language="Phplrt"
                 extensions="pp2"/>
         <lang.parserDefinition
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtParserDefinition"/>
+                implementationClass="com.github.xepozz.phplrt.language.PhplrtParserDefinition"/>
         <lang.syntaxHighlighterFactory
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtSyntaxHighlighterFactory"/>
+                implementationClass="com.github.xepozz.phplrt.language.PhplrtSyntaxHighlighterFactory"/>
         <psi.referenceContributor
                 language="Phplrt"
-                implementation="com.github.xepozz.phplrtplugin.support.PhplrtReferenceContributor"
+                implementation="com.github.xepozz.phplrt.support.PhplrtReferenceContributor"
         />
-        <stubElementTypeHolder class="com.github.xepozz.phplrtplugin.psi.PhplrtTypes" externalIdPrefix=""/>
+        <stubElementTypeHolder class="com.github.xepozz.phplrt.psi.PhplrtTypes" externalIdPrefix=""/>
 
         <lang.braceMatcher
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrtplugin.language.PhplrtBraceMatcher"/>
+                implementationClass="com.github.xepozz.phplrt.language.PhplrtBraceMatcher"/>
         <lang.findUsagesProvider
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtFindUsagesProvider"/>
+                implementationClass="com.github.xepozz.phplrt.support.PhplrtFindUsagesProvider"/>
         <lang.psiStructureViewFactory
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtPsiStructureViewFactory"/>
+                implementationClass="com.github.xepozz.phplrt.support.PhplrtPsiStructureViewFactory"/>
         <lang.commenter
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCommenter"/>
+                implementationClass="com.github.xepozz.phplrt.support.PhplrtCommenter"/>
         <completion.contributor
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCompletionContributor"/>
+                implementationClass="com.github.xepozz.phplrt.support.PhplrtCompletionContributor"/>
 
-        <stubIndex implementation="com.github.xepozz.phplrtplugin.language.PhplrtTokenIndex"/>
-        <fileBasedIndex implementation="com.github.xepozz.phplrtplugin.support.index.PhplrtTokenIndex"/>
+        <stubIndex implementation="com.github.xepozz.phplrt.language.PhplrtTokenIndex"/>
+        <fileBasedIndex implementation="com.github.xepozz.phplrt.support.index.PhplrtTokenIndex"/>
     </extensions>
 </idea-plugin>
