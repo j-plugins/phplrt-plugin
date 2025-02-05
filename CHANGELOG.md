@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# phplrt-plugin Changelog
+# PHP Language Recognition Tool (phplrt) Changelog
 
 ## [Unreleased]
 ### Added
