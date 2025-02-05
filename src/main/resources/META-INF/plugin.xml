@@ -45,13 +45,5 @@
 
         <stubIndex implementation="com.github.xepozz.phplrtplugin.language.PhplrtTokenIndex"/>
         <fileBasedIndex implementation="com.github.xepozz.phplrtplugin.support.index.PhplrtTokenIndex"/>
-
-        <toolWindow factoryClass="com.github.xepozz.phplrtplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.xepozz.phplrtplugin.listeners.MyApplicationActivationListener"
-                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
 </idea-plugin>
