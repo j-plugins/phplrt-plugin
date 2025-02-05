@@ -13,18 +13,22 @@
   tokenTypeClass="com.github.xepozz.phplrtplugin.psi.PhplrtTokenType"
 
   psiImplUtilClass="com.github.xepozz.phplrtplugin.psi.impl.PhplrtPsiImplUtil"
+
+  elementTypeFactory("metaDecl")="com.github.xepozz.phplrtplugin.psi.PhplrtElementTypeFactory.factory"
 }
 
 phplrtFile ::= item_*
 
-private item_ ::= (metaDecl|ruleDecl|COMMENT|NEWLINE)
+private item_ ::= (metaDecl|ruleDecl|COMMENT|EOL)
 
-metaDecl ::= (META_START (TOKEN|SKIP|PRAGMA) identifier VALUE NEWLINE)
+metaDecl ::= (META_START (TOKEN|SKIP|PRAGMA) identifier VALUE)
 {
     pin=1
-    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+//    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
     implements="com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"
-    methods=[getName setName getNameIdentifier]
+    extends="com.github.xepozz.phplrtplugin.psi.PhplrtMetaDeclarationBaseImpl"
+    stubClass="com.github.xepozz.phplrtplugin.psi.PhplrtMetaDeclarationStub"
+    methods=[getName getValue getNameIdentifier isToken isSkip isPragma]
 }
 ruleDecl ::= (ruleModifier? identifier COLON expressions SEMICOLON)
 {
@@ -42,11 +46,13 @@ ruleReference ::= identifier PARENTHESES_OPEN PARENTHESES_CLOSE
 //    methods=[getName setName getNameIdentifier]
 //}
 tokenReference ::= hiddenTokenReference | visibleTokenReference
-//{
-//    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
-//    implements=["com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"]
-//    methods=[getName setName getNameIdentifier]
-//}
+{
+    mixin="com.github.xepozz.phplrtplugin.psi.impl.PhplrtNamedElementImpl"
+    implements=["com.github.xepozz.phplrtplugin.psi.PhplrtNamedElement"]
+    extends=["com.github.xepozz.phplrtplugin.psi.PhplrtTokenReferenceBaseImpl"]
+    stubClass=["com.github.xepozz.phplrtplugin.psi.PhplrtTokenReferenceStub"]
+    methods=[getName setName getNameIdentifier]
+}
 private hiddenTokenReference ::= (DOUBLE_COLON identifier DOUBLE_COLON)
 {
     pin=2

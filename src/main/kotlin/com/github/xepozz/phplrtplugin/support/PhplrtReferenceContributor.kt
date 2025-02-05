@@ -12,32 +12,22 @@ class PhplrtReferenceContributor : PsiReferenceContributor() {
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         registrar.registerReferenceProvider(
             PlatformPatterns.psiElement()
-//                .withParent(
-//                    PlatformPatterns.psiElement(PhplrtTypes.LITERAL)
-//                        .withParent(PhplrtIdentifier::class.java)
-//                )
+//            PlatformPatterns.psiElement(PhplrtTypes.LITERAL)
+//            PlatformPatterns.elementType().tokenSet(PhplrtTokenSets.IDENTIFIERS),
+//                .withParent(PlatformPatterns.psiElement(PhplrtTypes.TOKEN_REFERENCE))
             ,
-            object : PsiReferenceProvider() {
-                override fun getReferencesByElement(
-                    element: PsiElement,
-                    context: ProcessingContext
-                ): Array<PsiReference> {
-                    println("PhplrtIdentifier.getReferencesByElement\n ${element}, ${element::class}\n")
-                    return PsiReference.EMPTY_ARRAY
-                }
-            }
+            Provider,
+            PsiReferenceRegistrar.HIGHER_PRIORITY
         )
-//        registrar.registerReferenceProvider(
-//            PlatformPatterns.psiElement(PhplrtTypes.IDENTIFIER),
-//            object : PsiReferenceProvider() {
-//                override fun getReferencesByElement(
-//                    element: PsiElement,
-//                    context: ProcessingContext
-//                ): Array<PsiReference> {
-//                    println("TokenReferenceReferenceContributor.PhplrtTypes.IDENTIFIER\n ${element}\n")
-//                    return PsiReference.EMPTY_ARRAY
-//                }
-//            }
-//        )
+    }
+
+    object Provider : PsiReferenceProvider() {
+        override fun getReferencesByElement(
+            element: PsiElement,
+            context: ProcessingContext
+        ): Array<out PsiReference> {
+            println("5555 PhplrtIdentifier.getReferencesByElement\n ${element}, ${element::class}\n")
+            return PsiReference.EMPTY_ARRAY
+        }
     }
 }

@@ -11,4 +11,10 @@ object PhplrtTokenSets {
     val KEYWORDS = TokenSet.create(
         PhplrtTypes.TOKEN, PhplrtTypes.SKIP, PhplrtTypes.PRAGMA,
     )
+    val STRING_LITERALS = TokenSet.create(
+        PhplrtTypes.VALUE,
+    )
+    val WHITESPACES = TokenSet.create(
+        PhplrtTypes.EOL, *TokenSet.WHITE_SPACE.types,
+    )
 }

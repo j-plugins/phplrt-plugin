@@ -2,8 +2,8 @@ package com.github.xepozz.phplrtplugin.support
 
 import com.github.xepozz.phplrtplugin.language.Icons
 import com.github.xepozz.phplrtplugin.psi.PhplrtIdentifier
-import com.github.xepozz.phplrtplugin.psi.PhplrtMetaDecl
 import com.github.xepozz.phplrtplugin.psi.PhplrtTypes
+import com.github.xepozz.phplrtplugin.support.index.PhplrtTokenIndex
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
@@ -11,13 +11,10 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.patterns.PlatformPatterns
-import com.intellij.psi.PsiElement
-import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.util.ProcessingContext
+import com.intellij.util.indexing.FileBasedIndex
 
 class PhplrtCompletionContributor : CompletionContributor() {
-    override fun invokeAutoPopup(position: PsiElement, typeChar: Char) = true
-
     init {
         extend(
             CompletionType.BASIC,
@@ -39,6 +36,7 @@ class PhplrtCompletionContributor : CompletionContributor() {
                 }
             }
         )
+
         extend(
             CompletionType.BASIC,
             PlatformPatterns.psiElement()
@@ -49,9 +47,15 @@ class PhplrtCompletionContributor : CompletionContributor() {
                     context: ProcessingContext,
                     result: CompletionResultSet
                 ) {
+                    val fileBasedIndex = FileBasedIndex.getInstance()
 
-                    result.addElement(LookupElementBuilder.create("Hello"))
-                    result.addElement(LookupElementBuilder.create("World"))
+                    fileBasedIndex.processAllKeys(PhplrtTokenIndex.key, {
+                        result.addElement(
+                            LookupElementBuilder.create(it)
+                                .withIcon(Icons.FILE)
+                        )
+                        true
+                    }, parameters.position.project)
                 }
             }
         )

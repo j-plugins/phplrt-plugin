@@ -25,10 +25,18 @@ RIGHT_ARROW=">"
 OP_OR="|"
 PARENTHESES_OPEN=\(
 PARENTHESES_CLOSE=\)
-NEWLINE=\r|\n|\r\n
-WHITE_SPACE=[ \s\t\h]
-VALUE=[^\s\h\t \r][^\n]*
-LITERAL=[a-zA-Z_]+
+//NEWLINE=\r|\n|\r\n
+
+
+//ALPHANUM = [\p{Letter}\p{Number}]
+WHITE_SPACE = [ \t\f]
+EOL = \R
+
+
+//WHITE_SPACE=[ \s\t\h]+
+VALUE=[^\r\n]+
+//VALUE=[^\s\h\t \r].*
+LITERAL=[A-Za-z_][A-Za-z0-9_]*
 END_OF_LINE_COMMENT="//"[^\n]*[^\n]?
 MULTILINE_COMMENT=\/\*\*[\s\S]*?\*\/
 
@@ -49,13 +57,13 @@ MULTILINE_COMMENT=\/\*\*[\s\S]*?\*\/
 <YYINITIAL> {SHARP}                                              { return PhplrtTypes.RULE_MODIFIER_HIDDEN; }
 <YYINITIAL> {END_OF_LINE_COMMENT}                                { yybegin(YYINITIAL); return PhplrtTypes.COMMENT; }
 <YYINITIAL> {MULTILINE_COMMENT}                                  { yybegin(YYINITIAL); return PhplrtTypes.COMMENT; }
-<YYINITIAL> {NEWLINE}                                            { yybegin(YYINITIAL); return PhplrtTypes.NEWLINE; }
+//<YYINITIAL> {NEWLINE}                                            { yybegin(YYINITIAL); return PhplrtTypes.NEWLINE; }
+{EOL}+                                                           { return PhplrtTypes.EOL; }
 {WHITE_SPACE}+                                                   { return TokenType.WHITE_SPACE; }
 
 <WAITING_LITERAL> {LITERAL}                                      { yybegin(WAITING_VALUE); return PhplrtTypes.LITERAL; }
 <WAITING_VALUE> {WHITE_SPACE}+                                   { return TokenType.WHITE_SPACE; }
 <WAITING_VALUE> {VALUE}                                          { yybegin(YYINITIAL); return PhplrtTypes.VALUE; }
-
 
 {LITERAL}                                                        { return PhplrtTypes.LITERAL; }
 {COLON}                                                          { return PhplrtTypes.COLON; }

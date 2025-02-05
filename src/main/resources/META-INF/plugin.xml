@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>com.github.xepozz.phplrt</id>
     <name>Phplrt Plug-In</name>
-    <vendor>xepozz</vendor>
+    <vendor email="xepozz@list.ru" url="https://github.com/xepozz">Dmitrii Derepko (@xepozz)</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -24,7 +24,6 @@
         <psi.referenceContributor
                 language="Phplrt"
                 implementation="com.github.xepozz.phplrtplugin.support.PhplrtReferenceContributor"
-                order="first"
         />
         <stubElementTypeHolder class="com.github.xepozz.phplrtplugin.psi.PhplrtTypes" externalIdPrefix=""/>
 
@@ -44,6 +43,8 @@
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrtplugin.support.PhplrtCompletionContributor"/>
 
+        <stubIndex implementation="com.github.xepozz.phplrtplugin.language.PhplrtTokenIndex"/>
+        <fileBasedIndex implementation="com.github.xepozz.phplrtplugin.support.index.PhplrtTokenIndex"/>
 
         <toolWindow factoryClass="com.github.xepozz.phplrtplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
 
