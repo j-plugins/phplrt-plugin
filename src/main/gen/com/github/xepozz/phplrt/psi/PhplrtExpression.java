@@ -6,6 +6,12 @@ import org.jetbrains.annotations.Nullable;
 
 public interface PhplrtExpression extends PsiElement {
 
+    @Nullable
+    PhplrtExpressions getExpressions();
+
+    @Nullable
+    PhplrtQuantifier getQuantifier();
+
   @Nullable
   PhplrtRuleReference getRuleReference();
 

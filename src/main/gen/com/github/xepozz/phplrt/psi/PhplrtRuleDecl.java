@@ -7,6 +7,9 @@ import org.jetbrains.annotations.Nullable;
 
 public interface PhplrtRuleDecl extends PsiElement {
 
+    @Nullable
+    PhplrtCode getCode();
+
   @Nullable
   PhplrtExpressions getExpressions();
 

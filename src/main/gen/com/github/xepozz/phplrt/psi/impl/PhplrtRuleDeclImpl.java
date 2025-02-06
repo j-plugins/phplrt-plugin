@@ -25,6 +25,12 @@ public class PhplrtRuleDeclImpl extends ASTWrapperPsiElement implements PhplrtRu
     else super.accept(visitor);
   }
 
+    @Override
+    @Nullable
+    public PhplrtCode getCode() {
+        return PsiTreeUtil.getChildOfType(this, PhplrtCode.class);
+    }
+
   @Override
   @Nullable
   public PhplrtExpressions getExpressions() {

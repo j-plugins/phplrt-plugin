@@ -1,15 +1,16 @@
 // This is a generated file. Not intended for manual editing.
 package com.github.xepozz.phplrt.language;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import com.intellij.lang.PsiParser;
-import com.intellij.psi.tree.IElementType;
-
 import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
 import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+
+import com.intellij.psi.tree.IElementType;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.tree.TokenSet;
+import com.intellij.lang.PsiParser;
+import com.intellij.lang.LightPsiParser;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class PhplrtParser implements PsiParser, LightPsiParser {
@@ -36,14 +37,53 @@ public class PhplrtParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // tokenReference | ruleReference
+  // CODE_DELIMITER INLINE_CODE
+  public static boolean code(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "code")) return false;
+    if (!nextTokenIs(b, CODE_DELIMITER)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, CODE, null);
+    r = consumeTokens(b, 1, CODE_DELIMITER, INLINE_CODE);
+    p = r; // pin = 1
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // (expression_inner | grouped_expression) quantifier?
   public static boolean expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
+    r = expression_0(b, l + 1);
+    r = r && expression_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // expression_inner | grouped_expression
+  private static boolean expression_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expression_0")) return false;
+    boolean r;
+    r = expression_inner(b, l + 1);
+    if (!r) r = grouped_expression(b, l + 1);
+    return r;
+  }
+
+  // quantifier?
+  private static boolean expression_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expression_1")) return false;
+    quantifier(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // tokenReference | ruleReference
+  static boolean expression_inner(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expression_inner")) return false;
+    boolean r;
     r = tokenReference(b, l + 1);
     if (!r) r = ruleReference(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -89,6 +129,20 @@ public class PhplrtParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // PARENTHESES_OPEN expressions PARENTHESES_CLOSE
+  static boolean grouped_expression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "grouped_expression")) return false;
+    if (!nextTokenIs(b, PARENTHESES_OPEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, PARENTHESES_OPEN);
+    r = r && expressions(b, l + 1);
+    r = r && consumeToken(b, PARENTHESES_CLOSE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // DOUBLE_COLON identifier DOUBLE_COLON
   static boolean hiddenTokenReference(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "hiddenTokenReference")) return false;
@@ -116,19 +170,18 @@ public class PhplrtParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // metaDecl|ruleDecl|COMMENT|EOL
+  // metaDecl|ruleDecl|COMMENT
   static boolean item_(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_")) return false;
     boolean r;
     r = metaDecl(b, l + 1);
     if (!r) r = ruleDecl(b, l + 1);
     if (!r) r = consumeToken(b, COMMENT);
-    if (!r) r = consumeToken(b, EOL);
     return r;
   }
 
   /* ********************************************************** */
-  // META_START (TOKEN|SKIP|PRAGMA) identifier VALUE
+  // META_START (((TOKEN|SKIP|PRAGMA) identifier VALUE) | (INCLUDE VALUE))
   public static boolean metaDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "metaDecl")) return false;
     if (!nextTokenIs(b, META_START)) return false;
@@ -136,20 +189,51 @@ public class PhplrtParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, META_DECL, null);
     r = consumeToken(b, META_START);
     p = r; // pin = 1
-    r = r && report_error_(b, metaDecl_1(b, l + 1));
-    r = p && report_error_(b, identifier(b, l + 1)) && r;
-    r = p && consumeToken(b, VALUE) && r;
+    r = r && metaDecl_1(b, l + 1);
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
-  // TOKEN|SKIP|PRAGMA
+  // ((TOKEN|SKIP|PRAGMA) identifier VALUE) | (INCLUDE VALUE)
   private static boolean metaDecl_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "metaDecl_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = metaDecl_1_0(b, l + 1);
+    if (!r) r = metaDecl_1_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (TOKEN|SKIP|PRAGMA) identifier VALUE
+  private static boolean metaDecl_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "metaDecl_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = metaDecl_1_0_0(b, l + 1);
+    r = r && identifier(b, l + 1);
+    r = r && consumeToken(b, VALUE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // TOKEN|SKIP|PRAGMA
+  private static boolean metaDecl_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "metaDecl_1_0_0")) return false;
     boolean r;
     r = consumeToken(b, TOKEN);
     if (!r) r = consumeToken(b, SKIP);
     if (!r) r = consumeToken(b, PRAGMA);
+    return r;
+  }
+
+  // INCLUDE VALUE
+  private static boolean metaDecl_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "metaDecl_1_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, INCLUDE, VALUE);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -178,16 +262,30 @@ public class PhplrtParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ruleModifier? identifier COLON expressions SEMICOLON
+  // QUANTIFIER_ZERO_ONE | QUANTIFIER_ANY | QUANTIFIER_ONE_INFINITE
+  public static boolean quantifier(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "quantifier")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, QUANTIFIER, "<quantifier>");
+    r = consumeToken(b, QUANTIFIER_ZERO_ONE);
+    if (!r) r = consumeToken(b, QUANTIFIER_ANY);
+    if (!r) r = consumeToken(b, QUANTIFIER_ONE_INFINITE);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ruleModifier? identifier code? COLON expressions SEMICOLON
   public static boolean ruleDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ruleDecl")) return false;
-    if (!nextTokenIs(b, "<rule decl>", LITERAL, RULE_MODIFIER_HIDDEN)) return false;
+    if (!nextTokenIs(b, "<rule decl>", LITERAL, SHARP)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, RULE_DECL, "<rule decl>");
     r = ruleDecl_0(b, l + 1);
     r = r && identifier(b, l + 1);
+    r = r && ruleDecl_2(b, l + 1);
     r = r && consumeToken(b, COLON);
-    p = r; // pin = 3
+    p = r; // pin = 4
     r = r && report_error_(b, expressions(b, l + 1));
     r = p && consumeToken(b, SEMICOLON) && r;
     exit_section_(b, l, m, r, p, null);
@@ -201,14 +299,21 @@ public class PhplrtParser implements PsiParser, LightPsiParser {
     return true;
   }
 
+  // code?
+  private static boolean ruleDecl_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ruleDecl_2")) return false;
+    code(b, l + 1);
+    return true;
+  }
+
   /* ********************************************************** */
-  // RULE_MODIFIER_HIDDEN
+  // SHARP
   public static boolean ruleModifier(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ruleModifier")) return false;
-    if (!nextTokenIs(b, RULE_MODIFIER_HIDDEN)) return false;
+    if (!nextTokenIs(b, SHARP)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, RULE_MODIFIER_HIDDEN);
+    r = consumeToken(b, SHARP);
     exit_section_(b, m, RULE_MODIFIER, r);
     return r;
   }

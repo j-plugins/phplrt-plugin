@@ -9,12 +9,9 @@ object PhplrtTokenSets {
         PhplrtTypes.OP_OR, PhplrtTypes.PARENTHESES_OPEN, PhplrtTypes.PARENTHESES_CLOSE,
     )
     val KEYWORDS = TokenSet.create(
-        PhplrtTypes.TOKEN, PhplrtTypes.SKIP, PhplrtTypes.PRAGMA,
+        PhplrtTypes.TOKEN, PhplrtTypes.SKIP, PhplrtTypes.PRAGMA, PhplrtTypes.INCLUDE,
     )
     val STRING_LITERALS = TokenSet.create(
         PhplrtTypes.VALUE,
-    )
-    val WHITESPACES = TokenSet.create(
-        PhplrtTypes.EOL, *TokenSet.WHITE_SPACE.types,
     )
 }

@@ -26,7 +26,6 @@ class PhplrtReferenceContributor : PsiReferenceContributor() {
             element: PsiElement,
             context: ProcessingContext
         ): Array<out PsiReference> {
-            println("5555 PhplrtIdentifier.getReferencesByElement\n ${element}, ${element::class}\n")
             return PsiReference.EMPTY_ARRAY
         }
     }

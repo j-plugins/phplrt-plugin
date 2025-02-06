@@ -19,26 +19,37 @@
 
 phplrtFile ::= item_*
 
-private item_ ::= (metaDecl|ruleDecl|COMMENT|EOL)
+private item_ ::= (metaDecl|ruleDecl|COMMENT)
 
-metaDecl ::= (META_START (TOKEN|SKIP|PRAGMA) identifier VALUE)
+
+metaDecl ::= META_START (((TOKEN|SKIP|PRAGMA) identifier VALUE) | (INCLUDE VALUE))
 {
     pin=1
 //    mixin="com.github.xepozz.phplrt.psi.impl.PhplrtNamedElementImpl"
-    implements="com.github.xepozz.phplrt.psi.PhplrtNamedElement"
+    implements=["com.github.xepozz.phplrt.psi.PhplrtNamedElement"]
     extends="com.github.xepozz.phplrt.psi.PhplrtMetaDeclarationBaseImpl"
     stubClass="com.github.xepozz.phplrt.psi.PhplrtMetaDeclarationStub"
     methods=[getName getValue getNameIdentifier isToken isSkip isPragma]
 }
-ruleDecl ::= (ruleModifier? identifier COLON expressions SEMICOLON)
+//ruleDecl ::= (ruleModifier? identifier (CODE_DELIMITER CURLY_BRACKETS_LEFT INLINE_CODE CURLY_BRACKETS_RIGHT)? COLON expressions SEMICOLON)
+ruleDecl ::= ruleModifier? identifier code? COLON expressions SEMICOLON
 {
-    pin=3
+    pin=4
 //    mixin="com.github.xepozz.phplrt.psi.impl.PhplrtNamedElementImpl"
-//    implements="com.github.xepozz.phplrt.psi.PhplrtNamedElement"
+//    implements=["com.github.xepozz.phplrt.psi.PhplrtNamedElement"]
 //    methods=[getName setName getValue setValue getNameIdentifier]
 }
+code ::= CODE_DELIMITER INLINE_CODE
+{
+    pin=1
+    extends="com.github.xepozz.phplrt.language.psi.impl.PhplrtCodeBaseImpl"
+    implements=["com.intellij.psi.PsiLanguageInjectionHost"]
+}
 expressions ::= expression (operator? expression)*
-expression ::= tokenReference | ruleReference
+expression ::= (expression_inner | grouped_expression) quantifier?
+private grouped_expression ::= PARENTHESES_OPEN expressions PARENTHESES_CLOSE
+private expression_inner ::= (tokenReference | ruleReference)
+quantifier ::= QUANTIFIER_ZERO_ONE | QUANTIFIER_ANY | QUANTIFIER_ONE_INFINITE
 ruleReference ::= identifier PARENTHESES_OPEN PARENTHESES_CLOSE
 //{
 //    mixin="com.github.xepozz.phplrt.psi.impl.PhplrtNamedElementImpl"
@@ -49,7 +60,7 @@ tokenReference ::= hiddenTokenReference | visibleTokenReference
 {
     mixin="com.github.xepozz.phplrt.psi.impl.PhplrtNamedElementImpl"
     implements=["com.github.xepozz.phplrt.psi.PhplrtNamedElement"]
-    extends=["com.github.xepozz.phplrt.psi.PhplrtTokenReferenceBaseImpl"]
+    extends="com.github.xepozz.phplrt.psi.PhplrtTokenReferenceBaseImpl"
     stubClass=["com.github.xepozz.phplrt.psi.PhplrtTokenReferenceStub"]
     methods=[getName setName getNameIdentifier]
 }
@@ -68,4 +79,4 @@ identifier ::= LITERAL
 //    methods=[getName setName getNameIdentifier]
 //}
 operator ::= OP_OR
-ruleModifier ::= RULE_MODIFIER_HIDDEN
+ruleModifier ::= SHARP

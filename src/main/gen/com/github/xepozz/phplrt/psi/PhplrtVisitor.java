@@ -3,9 +3,14 @@ package com.github.xepozz.phplrt.psi;
 
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.PsiLanguageInjectionHost;
 import org.jetbrains.annotations.NotNull;
 
 public class PhplrtVisitor extends PsiElementVisitor {
+
+  public void visitCode(@NotNull PhplrtCode o) {
+    visitPsiLanguageInjectionHost(o);
+  }
 
   public void visitExpression(@NotNull PhplrtExpression o) {
     visitPsiElement(o);
@@ -27,6 +32,10 @@ public class PhplrtVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitQuantifier(@NotNull PhplrtQuantifier o) {
+    visitPsiElement(o);
+  }
+
   public void visitRuleDecl(@NotNull PhplrtRuleDecl o) {
     visitPsiElement(o);
   }
@@ -45,6 +54,10 @@ public class PhplrtVisitor extends PsiElementVisitor {
 
   public void visitNamedElement(@NotNull PhplrtNamedElement o) {
     visitPsiElement(o);
+  }
+
+  public void visitPsiLanguageInjectionHost(@NotNull PsiLanguageInjectionHost o) {
+    visitElement(o);
   }
 
   public void visitPsiElement(@NotNull PsiElement o) {

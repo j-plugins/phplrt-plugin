@@ -1,16 +1,18 @@
 // This is a generated file. Not intended for manual editing.
 package com.github.xepozz.phplrt.psi.impl;
 
-import com.github.xepozz.phplrt.psi.PhplrtExpression;
-import com.github.xepozz.phplrt.psi.PhplrtRuleReference;
-import com.github.xepozz.phplrt.psi.PhplrtTokenReference;
-import com.github.xepozz.phplrt.psi.PhplrtVisitor;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import java.util.List;
+
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
+
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.github.xepozz.phplrt.psi.*;
 
 public class PhplrtExpressionImpl extends ASTWrapperPsiElement implements PhplrtExpression {
 
@@ -27,6 +29,18 @@ public class PhplrtExpressionImpl extends ASTWrapperPsiElement implements Phplrt
     if (visitor instanceof PhplrtVisitor) accept((PhplrtVisitor)visitor);
     else super.accept(visitor);
   }
+
+    @Override
+    @Nullable
+    public PhplrtExpressions getExpressions() {
+        return PsiTreeUtil.getChildOfType(this, PhplrtExpressions.class);
+    }
+
+    @Override
+    @Nullable
+    public PhplrtQuantifier getQuantifier() {
+        return PsiTreeUtil.getChildOfType(this, PhplrtQuantifier.class);
+    }
 
   @Override
   @Nullable

@@ -27,6 +27,7 @@ class PhplrtSyntaxHighlighter : SyntaxHighlighterBase() {
         PhplrtTypes.TOKEN -> KEY_KEYS
         PhplrtTypes.PRAGMA -> KEY_KEYS
         PhplrtTypes.SKIP -> KEY_KEYS
+        PhplrtTypes.INCLUDE -> KEY_KEYS
 
         PhplrtTypes.VALUE -> VALUE_KEYS
         PhplrtTypes.COMMENT -> COMMENT_KEYS

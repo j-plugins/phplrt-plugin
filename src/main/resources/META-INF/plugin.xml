@@ -26,6 +26,7 @@
                 implementation="com.github.xepozz.phplrt.support.PhplrtReferenceContributor"
         />
         <stubElementTypeHolder class="com.github.xepozz.phplrt.psi.PhplrtTypes" externalIdPrefix=""/>
+        <multiHostInjector implementation="com.github.xepozz.phplrt.language.PhplrtLanguageInjector"/>
 
         <lang.braceMatcher
                 language="Phplrt"

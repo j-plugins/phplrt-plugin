@@ -16,7 +16,7 @@ internal class PhplrtParserDefinition : ParserDefinition {
 
     override fun getCommentTokens() = PhplrtTokenSets.COMMENTS
 
-    override fun getWhitespaceTokens(): TokenSet = PhplrtTokenSets.WHITESPACES
+    override fun getWhitespaceTokens(): TokenSet = TokenSet.WHITE_SPACE
 
     override fun getStringLiteralElements(): TokenSet = PhplrtTokenSets.STRING_LITERALS
 

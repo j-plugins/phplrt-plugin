@@ -10,7 +10,6 @@ class PhplrtPsiImplUtil {
         @JvmStatic
         fun getNameIdentifier(element: PhplrtNamedElement): PsiElement? {
             val keyNode = element.node.findChildByType(PhplrtTypes.IDENTIFIER)
-            println("1getNameIdentifier: $keyNode of ${element.node}, $element res: ${keyNode?.psi?.text}")
             return keyNode?.psi
         }
 
@@ -32,14 +31,12 @@ class PhplrtPsiImplUtil {
         @JvmStatic
         fun getValue(element: PhplrtNamedElement): String {
             val keyNode = element.node.findChildByType(PhplrtTypes.VALUE)
-            println("getValue: $keyNode of ${element.node}, $element res: ${keyNode?.psi?.text}")
             return keyNode?.text ?: ""
         }
 
         @JvmStatic
         fun getName(element: PhplrtNamedElement): String {
             val valueNode = getNameIdentifier(element)
-            println("getName: ${valueNode?.text} ${valueNode?.textRange} of ${element.node}")
             return valueNode?.text ?: ""
         }
 
@@ -48,11 +45,9 @@ class PhplrtPsiImplUtil {
             val keyNode = element.node.findChildByType(PhplrtTypes.IDENTIFIER)
             if (keyNode != null) {
                 val property = PhplrtElementFactory.createTokenDeclaration(element.project, name)
-                println("create new TokenDeclaration: $name of ${element.node}, res: $property")
                 val newKeyNode = property?.firstChild?.node ?: return null
                 element.node.replaceChild(keyNode, newKeyNode)
             }
-            println("setName: $name of ${element.node}")
 
             return element
         }
