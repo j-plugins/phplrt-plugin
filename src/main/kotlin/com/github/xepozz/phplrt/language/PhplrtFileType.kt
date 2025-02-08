@@ -1,5 +1,6 @@
 package com.github.xepozz.phplrt.language
 
+import com.github.xepozz.phplrt.PhplrtIcons
 import com.intellij.openapi.fileTypes.LanguageFileType
 
 class PhplrtFileType private constructor() : LanguageFileType(PhplrtLanguage.INSTANCE) {
@@ -9,7 +10,7 @@ class PhplrtFileType private constructor() : LanguageFileType(PhplrtLanguage.INS
 
     override fun getDefaultExtension() = "pp2"
 
-    override fun getIcon() = Icons.FILE
+    override fun getIcon() = PhplrtIcons.FILE
 
     companion object {
         val INSTANCE = PhplrtFileType()

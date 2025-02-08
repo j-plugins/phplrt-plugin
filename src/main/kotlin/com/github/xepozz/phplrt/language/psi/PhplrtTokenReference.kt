@@ -1,9 +1,11 @@
-package com.github.xepozz.phplrt.psi
+package com.github.xepozz.phplrt.language.psi
 
-import com.github.xepozz.phplrt.language.Icons
-import com.github.xepozz.phplrt.language.PhplrtStubbedPsiElementBase
-import com.github.xepozz.phplrt.support.PhplrtReference
+import com.github.xepozz.phplrt.PhplrtIcons
+import com.github.xepozz.phplrt.ide.reference.PhplrtReference
+import com.github.xepozz.phplrt.psi.PhplrtTokenReference
+import com.github.xepozz.phplrt.psi.PhplrtTypes
 import com.intellij.lang.ASTNode
+import com.intellij.model.psi.PsiExternalReferenceHost
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.psi.PsiElement
@@ -13,10 +15,11 @@ import com.intellij.psi.stubs.NamedStubBase
 import com.intellij.psi.stubs.StubElement
 import com.intellij.util.io.StringRef
 
-abstract class PhplrtMetaDeclarationBaseImpl :
-    PhplrtNamedStubbedPsiElementBase<PhplrtMetaDeclarationStub>,
-    PhplrtMetaDecl {
-    constructor(stub: PhplrtMetaDeclarationStub, nodeType: IStubElementType<*, *>) : super(stub, nodeType)
+
+abstract class PhplrtTokenReferenceBaseImpl :
+    PhplrtNamedStubbedPsiElementBase<PhplrtTokenReferenceStub>,
+    PhplrtTokenReference, PsiExternalReferenceHost {
+    constructor(stub: PhplrtTokenReferenceStub, nodeType: IStubElementType<*, *>) : super(stub, nodeType)
     constructor(node: ASTNode) : super(node)
 
     override fun getName(): String {
@@ -24,13 +27,13 @@ abstract class PhplrtMetaDeclarationBaseImpl :
         return if (stub != null) StringUtil.notNullize(stub.name) else this.nameIdentifier!!.text
     }
 
-    override fun getNameIdentifier() = this.node.psi
+    override fun getNameIdentifier(): PsiElement? = this.node.psi
 
     override fun setName(name: String): PsiElement {
         val keyNode = this.node.findChildByType(PhplrtTypes.IDENTIFIER)
         if (keyNode != null) {
-            val property = PhplrtElementFactory.createTokenDeclaration(this.project, name)
-            println("create new TokenDeclaration: $name of ${this.node}, res: $property")
+            val property = PhplrtElementFactory.createTokenReference(this.project, name)
+            println("create new TokenReference: $name of ${this.node}, res: $property")
             val newKeyNode = property?.firstChild?.node ?: return this
             this.node.replaceChild(keyNode, newKeyNode)
         }
@@ -48,21 +51,12 @@ abstract class PhplrtMetaDeclarationBaseImpl :
         return object : ItemPresentation {
             override fun getPresentableText() = declaration.name
 
-            override fun getIcon(unused: Boolean) = Icons.FILE
+            override fun getIcon(unused: Boolean) = PhplrtIcons.FILE
         }
     }
 }
 
-
-abstract class PhplrtNamedStubbedPsiElementBase<T : StubElement<*>> :
-    PhplrtStubbedPsiElementBase<T>,
-    PhplrtNamedElement {
-    constructor(stub: T, nodeType: IStubElementType<*, *>) : super(stub, nodeType)
-    constructor(node: ASTNode) : super(node)
-}
-
-
-class PhplrtMetaDeclarationStub : NamedStubBase<PhplrtMetaDecl> {
+class PhplrtTokenReferenceStub : NamedStubBase<PhplrtTokenReference> {
     constructor(parent: StubElement<*>?, elementType: IStubElementType<*, *>, name: StringRef?) : super(
         parent,
         elementType,

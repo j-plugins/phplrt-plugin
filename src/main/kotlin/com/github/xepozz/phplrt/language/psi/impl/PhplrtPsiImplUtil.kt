@@ -1,7 +1,7 @@
-package com.github.xepozz.phplrt.psi.impl
+package com.github.xepozz.phplrt.language.psi.impl
 
-import com.github.xepozz.phplrt.psi.PhplrtElementFactory
-import com.github.xepozz.phplrt.psi.PhplrtNamedElement
+import com.github.xepozz.phplrt.language.psi.PhplrtElementFactory
+import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement
 import com.github.xepozz.phplrt.psi.PhplrtTypes
 import com.intellij.psi.PsiElement
 

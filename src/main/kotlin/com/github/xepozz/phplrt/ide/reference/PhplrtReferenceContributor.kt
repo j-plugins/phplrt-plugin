@@ -1,4 +1,4 @@
-package com.github.xepozz.phplrt.support
+package com.github.xepozz.phplrt.ide.reference
 
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.PsiElement

@@ -1,4 +1,4 @@
-package com.github.xepozz.phplrt.psi
+package com.github.xepozz.phplrt.language.psi
 
 import com.github.xepozz.phplrt.language.PhplrtFileType
 import com.github.xepozz.phplrt.language.PhplrtLanguage

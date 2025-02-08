@@ -23,8 +23,11 @@
                 implementationClass="com.github.xepozz.phplrt.language.PhplrtSyntaxHighlighterFactory"/>
         <psi.referenceContributor
                 language="Phplrt"
-                implementation="com.github.xepozz.phplrt.support.PhplrtReferenceContributor"
+                implementation="com.github.xepozz.phplrt.ide.reference.PhplrtReferenceContributor"
         />
+        <annotator
+                language="Phplrt"
+                implementationClass="com.github.xepozz.phplrt.language.PhplrtAnnotator"/>
         <stubElementTypeHolder class="com.github.xepozz.phplrt.psi.PhplrtTypes" externalIdPrefix=""/>
         <multiHostInjector implementation="com.github.xepozz.phplrt.language.PhplrtLanguageInjector"/>
 
@@ -33,18 +36,18 @@
                 implementationClass="com.github.xepozz.phplrt.language.PhplrtBraceMatcher"/>
         <lang.findUsagesProvider
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrt.support.PhplrtFindUsagesProvider"/>
+                implementationClass="com.github.xepozz.phplrt.ide.PhplrtFindUsagesProvider"/>
         <lang.psiStructureViewFactory
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrt.support.PhplrtPsiStructureViewFactory"/>
+                implementationClass="com.github.xepozz.phplrt.ide.structureView.PhplrtStructureViewFactory"/>
         <lang.commenter
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrt.support.PhplrtCommenter"/>
+                implementationClass="com.github.xepozz.phplrt.ide.PhplrtCommenter"/>
         <completion.contributor
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrt.support.PhplrtCompletionContributor"/>
+                implementationClass="com.github.xepozz.phplrt.ide.completion.PhplrtCompletionContributor"/>
 
         <stubIndex implementation="com.github.xepozz.phplrt.language.PhplrtTokenIndex"/>
-        <fileBasedIndex implementation="com.github.xepozz.phplrt.support.index.PhplrtTokenIndex"/>
+        <fileBasedIndex implementation="com.github.xepozz.phplrt.ide.index.PhplrtTokenIndex"/>
     </extensions>
 </idea-plugin>

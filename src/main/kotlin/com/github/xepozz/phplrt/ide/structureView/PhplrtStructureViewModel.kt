@@ -1,4 +1,4 @@
-package com.github.xepozz.phplrt.support
+package com.github.xepozz.phplrt.ide.structureView
 
 import com.intellij.ide.structureView.StructureViewModel.ElementInfoProvider
 import com.intellij.ide.structureView.StructureViewModelBase

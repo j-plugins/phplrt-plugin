@@ -1,5 +1,6 @@
-package com.github.xepozz.phplrt.psi
+package com.github.xepozz.phplrt.language.psi
 
+import com.github.xepozz.phplrt.psi.PhplrtTypes
 import com.intellij.psi.tree.TokenSet
 
 object PhplrtTokenSets {

@@ -1,4 +1,4 @@
-package com.github.xepozz.phplrt.support.index
+package com.github.xepozz.phplrt.ide.index
 
 import com.intellij.util.indexing.DataIndexer
 import com.intellij.util.indexing.FileBasedIndex

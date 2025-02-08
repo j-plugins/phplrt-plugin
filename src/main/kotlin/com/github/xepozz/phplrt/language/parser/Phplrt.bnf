@@ -9,12 +9,12 @@
   psiImplPackage="com.github.xepozz.phplrt.psi.impl"
 
   elementTypeHolderClass="com.github.xepozz.phplrt.psi.PhplrtTypes"
-  elementTypeClass="com.github.xepozz.phplrt.psi.PhplrtElementType"
-  tokenTypeClass="com.github.xepozz.phplrt.psi.PhplrtTokenType"
+  elementTypeClass="com.github.xepozz.phplrt.language.psi.PhplrtElementType"
+  tokenTypeClass="com.github.xepozz.phplrt.language.psi.PhplrtTokenType"
 
-  psiImplUtilClass="com.github.xepozz.phplrt.psi.impl.PhplrtPsiImplUtil"
+  psiImplUtilClass="com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil"
 
-  elementTypeFactory("metaDecl")="com.github.xepozz.phplrt.psi.PhplrtElementTypeFactory.factory"
+  elementTypeFactory("metaDecl")="com.github.xepozz.phplrt.language.psi.PhplrtElementTypeFactory.factory"
 }
 
 phplrtFile ::= item_*
@@ -26,9 +26,9 @@ metaDecl ::= META_START (((TOKEN|SKIP|PRAGMA) identifier VALUE) | (INCLUDE VALUE
 {
     pin=1
 //    mixin="com.github.xepozz.phplrt.psi.impl.PhplrtNamedElementImpl"
-    implements=["com.github.xepozz.phplrt.psi.PhplrtNamedElement"]
-    extends="com.github.xepozz.phplrt.psi.PhplrtMetaDeclarationBaseImpl"
-    stubClass="com.github.xepozz.phplrt.psi.PhplrtMetaDeclarationStub"
+    implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
+    extends="com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationBaseImpl"
+    stubClass="com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationStub"
     methods=[getName getValue getNameIdentifier isToken isSkip isPragma]
 }
 //ruleDecl ::= (ruleModifier? identifier (CODE_DELIMITER CURLY_BRACKETS_LEFT INLINE_CODE CURLY_BRACKETS_RIGHT)? COLON expressions SEMICOLON)
@@ -58,10 +58,10 @@ ruleReference ::= identifier PARENTHESES_OPEN PARENTHESES_CLOSE
 //}
 tokenReference ::= hiddenTokenReference | visibleTokenReference
 {
-    mixin="com.github.xepozz.phplrt.psi.impl.PhplrtNamedElementImpl"
-    implements=["com.github.xepozz.phplrt.psi.PhplrtNamedElement"]
-    extends="com.github.xepozz.phplrt.psi.PhplrtTokenReferenceBaseImpl"
-    stubClass=["com.github.xepozz.phplrt.psi.PhplrtTokenReferenceStub"]
+    mixin="com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl"
+    implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
+    extends="com.github.xepozz.phplrt.language.psi.PhplrtTokenReferenceBaseImpl"
+    stubClass=["com.github.xepozz.phplrt.language.psi.PhplrtTokenReferenceStub"]
     methods=[getName setName getNameIdentifier]
 }
 private hiddenTokenReference ::= (DOUBLE_COLON identifier DOUBLE_COLON)

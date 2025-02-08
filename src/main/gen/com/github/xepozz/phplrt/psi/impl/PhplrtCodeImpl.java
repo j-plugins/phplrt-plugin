@@ -10,21 +10,22 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
 import com.github.xepozz.phplrt.language.psi.impl.PhplrtCodeBaseImpl;
 import com.github.xepozz.phplrt.psi.*;
+import com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil;
 
 public class PhplrtCodeImpl extends PhplrtCodeBaseImpl implements PhplrtCode {
 
-    public PhplrtCodeImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public PhplrtCodeImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull PhplrtVisitor visitor) {
-        visitor.visitCode(this);
-    }
+  public void accept(@NotNull PhplrtVisitor visitor) {
+    visitor.visitCode(this);
+  }
 
-    @Override
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof PhplrtVisitor) accept((PhplrtVisitor) visitor);
-        else super.accept(visitor);
-    }
+  @Override
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof PhplrtVisitor) accept((PhplrtVisitor)visitor);
+    else super.accept(visitor);
+  }
 
 }

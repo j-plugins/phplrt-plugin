@@ -1,6 +1,6 @@
-package com.github.xepozz.phplrt.psi.impl
+package com.github.xepozz.phplrt.language.psi.impl
 
-import com.github.xepozz.phplrt.psi.PhplrtNamedElement
+import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 

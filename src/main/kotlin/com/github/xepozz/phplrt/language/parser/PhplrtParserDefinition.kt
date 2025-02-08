@@ -1,8 +1,8 @@
 package com.github.xepozz.phplrt.language.parser
 
 import com.github.xepozz.phplrt.language.PhplrtLanguage
-import com.github.xepozz.phplrt.psi.PhplrtFile
-import com.github.xepozz.phplrt.psi.PhplrtTokenSets
+import com.github.xepozz.phplrt.language.psi.PhplrtFile
+import com.github.xepozz.phplrt.language.psi.PhplrtTokenSets
 import com.github.xepozz.phplrt.psi.PhplrtTypes
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition

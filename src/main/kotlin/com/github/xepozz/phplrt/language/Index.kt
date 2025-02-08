@@ -1,9 +1,9 @@
 package com.github.xepozz.phplrt.language
 
-import com.github.xepozz.phplrt.psi.PhplrtFile
+import com.github.xepozz.phplrt.language.psi.PhplrtFile
+import com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationStub
+import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement
 import com.github.xepozz.phplrt.psi.PhplrtMetaDecl
-import com.github.xepozz.phplrt.psi.PhplrtMetaDeclarationStub
-import com.github.xepozz.phplrt.psi.PhplrtNamedElement
 import com.github.xepozz.phplrt.psi.impl.PhplrtMetaDeclImpl
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement

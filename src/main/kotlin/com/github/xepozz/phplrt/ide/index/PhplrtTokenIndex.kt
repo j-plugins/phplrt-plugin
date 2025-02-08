@@ -1,6 +1,6 @@
-package com.github.xepozz.phplrt.support.index
+package com.github.xepozz.phplrt.ide.index
 
-import com.github.xepozz.phplrt.psi.PhplrtFile
+import com.github.xepozz.phplrt.language.psi.PhplrtFile
 import com.github.xepozz.phplrt.psi.PhplrtMetaDecl
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.util.indexing.DataIndexer

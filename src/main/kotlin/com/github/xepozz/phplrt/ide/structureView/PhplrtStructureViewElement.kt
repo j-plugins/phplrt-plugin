@@ -1,8 +1,8 @@
-package com.github.xepozz.phplrt.support
+package com.github.xepozz.phplrt.ide.structureView
 
-import com.github.xepozz.phplrt.psi.PhplrtFile
+import com.github.xepozz.phplrt.language.psi.PhplrtFile
+import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement
 import com.github.xepozz.phplrt.psi.PhplrtMetaDecl
-import com.github.xepozz.phplrt.psi.PhplrtNamedElement
 import com.github.xepozz.phplrt.psi.PhplrtRuleDecl
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
@@ -12,8 +12,7 @@ import com.intellij.psi.util.PsiTreeUtil
 
 class PhplrtStructureViewElement(val item: PsiElement) : SortableTreeElement, PsiTreeElementBase<PsiElement>(item) {
     override fun getAlphaSortKey(): String {
-        val name = item.text
-        return if (name != null) name else ""
+        return item.text ?: ""
     }
 
     override fun getChildrenBase(): Collection<StructureViewTreeElement> {

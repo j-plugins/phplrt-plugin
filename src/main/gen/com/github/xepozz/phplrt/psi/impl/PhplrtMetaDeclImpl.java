@@ -2,17 +2,16 @@
 package com.github.xepozz.phplrt.psi.impl;
 
 import java.util.List;
-
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-
 import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
-
-import com.github.xepozz.phplrt.psi.PhplrtMetaDeclarationBaseImpl;
+import com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationBaseImpl;
 import com.github.xepozz.phplrt.psi.*;
+import com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil;
+import com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationStub;
 import com.intellij.psi.stubs.IStubElementType;
 
 public class PhplrtMetaDeclImpl extends PhplrtMetaDeclarationBaseImpl implements PhplrtMetaDecl {

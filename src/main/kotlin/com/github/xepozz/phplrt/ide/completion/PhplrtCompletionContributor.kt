@@ -1,9 +1,9 @@
-package com.github.xepozz.phplrt.support
+package com.github.xepozz.phplrt.ide.completion
 
-import com.github.xepozz.phplrt.language.Icons
+import com.github.xepozz.phplrt.PhplrtIcons
+import com.github.xepozz.phplrt.ide.index.PhplrtTokenIndex
 import com.github.xepozz.phplrt.psi.PhplrtIdentifier
 import com.github.xepozz.phplrt.psi.PhplrtTypes
-import com.github.xepozz.phplrt.support.index.PhplrtTokenIndex
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
@@ -26,11 +26,11 @@ class PhplrtCompletionContributor : CompletionContributor() {
                     context: ProcessingContext,
                     result: CompletionResultSet
                 ) {
-                    arrayOf("token", "skip", "pragma")
+                    arrayOf("token", "skip", "pragma", "include")
                         .forEach {
                             result.addElement(
                                 LookupElementBuilder.create(it)
-                                    .withIcon(Icons.FILE)
+                                    .withIcon(PhplrtIcons.FILE)
                             )
                         }
                 }
@@ -49,10 +49,10 @@ class PhplrtCompletionContributor : CompletionContributor() {
                 ) {
                     val fileBasedIndex = FileBasedIndex.getInstance()
 
-                    fileBasedIndex.processAllKeys(PhplrtTokenIndex.key, {
+                    fileBasedIndex.processAllKeys(PhplrtTokenIndex.Companion.key, {
                         result.addElement(
                             LookupElementBuilder.create(it)
-                                .withIcon(Icons.FILE)
+                                .withIcon(PhplrtIcons.FILE)
                         )
                         true
                     }, parameters.position.project)

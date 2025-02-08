@@ -10,6 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.github.xepozz.phplrt.psi.*;
+import com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil;
 
 public class PhplrtExpressionImpl extends ASTWrapperPsiElement implements PhplrtExpression {
 
@@ -27,17 +28,17 @@ public class PhplrtExpressionImpl extends ASTWrapperPsiElement implements Phplrt
     else super.accept(visitor);
   }
 
-    @Override
-    @Nullable
-    public PhplrtExpressions getExpressions() {
-        return PsiTreeUtil.getChildOfType(this, PhplrtExpressions.class);
-    }
+  @Override
+  @Nullable
+  public PhplrtExpressions getExpressions() {
+    return PsiTreeUtil.getChildOfType(this, PhplrtExpressions.class);
+  }
 
-    @Override
-    @Nullable
-    public PhplrtQuantifier getQuantifier() {
-        return PsiTreeUtil.getChildOfType(this, PhplrtQuantifier.class);
-    }
+  @Override
+  @Nullable
+  public PhplrtQuantifier getQuantifier() {
+    return PsiTreeUtil.getChildOfType(this, PhplrtQuantifier.class);
+  }
 
   @Override
   @Nullable

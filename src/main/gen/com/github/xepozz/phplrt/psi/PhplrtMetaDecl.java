@@ -1,10 +1,12 @@
 // This is a generated file. Not intended for manual editing.
 package com.github.xepozz.phplrt.psi;
 
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement;
 import com.intellij.psi.StubBasedPsiElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationStub;
 
 public interface PhplrtMetaDecl extends PhplrtNamedElement, StubBasedPsiElement<PhplrtMetaDeclarationStub> {
 

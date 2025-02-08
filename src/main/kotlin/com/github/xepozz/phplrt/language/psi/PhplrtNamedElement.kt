@@ -1,4 +1,4 @@
-package com.github.xepozz.phplrt.psi
+package com.github.xepozz.phplrt.language.psi
 
 import com.intellij.psi.PsiNameIdentifierOwner
 

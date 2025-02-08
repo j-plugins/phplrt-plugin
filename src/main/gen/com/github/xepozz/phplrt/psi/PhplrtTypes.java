@@ -1,10 +1,13 @@
 // This is a generated file. Not intended for manual editing.
 package com.github.xepozz.phplrt.psi;
 
-import com.github.xepozz.phplrt.psi.impl.*;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.PsiElement;
+import com.intellij.lang.ASTNode;
+import com.github.xepozz.phplrt.language.psi.PhplrtElementType;
+import com.github.xepozz.phplrt.language.psi.PhplrtElementTypeFactory;
+import com.github.xepozz.phplrt.language.psi.PhplrtTokenType;
+import com.github.xepozz.phplrt.psi.impl.*;
 
 public interface PhplrtTypes {
 
@@ -48,7 +51,8 @@ public interface PhplrtTypes {
       IElementType type = node.getElementType();
       if (type == CODE) {
         return new PhplrtCodeImpl(node);
-      } else if (type == EXPRESSION) {
+      }
+      else if (type == EXPRESSION) {
         return new PhplrtExpressionImpl(node);
       }
       else if (type == EXPRESSIONS) {
@@ -62,7 +66,8 @@ public interface PhplrtTypes {
       }
       else if (type == OPERATOR) {
         return new PhplrtOperatorImpl(node);
-      } else if (type == QUANTIFIER) {
+      }
+      else if (type == QUANTIFIER) {
         return new PhplrtQuantifierImpl(node);
       }
       else if (type == RULE_DECL) {

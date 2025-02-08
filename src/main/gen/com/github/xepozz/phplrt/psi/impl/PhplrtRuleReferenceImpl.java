@@ -1,14 +1,16 @@
 // This is a generated file. Not intended for manual editing.
 package com.github.xepozz.phplrt.psi.impl;
 
-import com.github.xepozz.phplrt.psi.PhplrtIdentifier;
-import com.github.xepozz.phplrt.psi.PhplrtRuleReference;
-import com.github.xepozz.phplrt.psi.PhplrtVisitor;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
+import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.github.xepozz.phplrt.psi.*;
+import com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil;
 
 public class PhplrtRuleReferenceImpl extends ASTWrapperPsiElement implements PhplrtRuleReference {
 

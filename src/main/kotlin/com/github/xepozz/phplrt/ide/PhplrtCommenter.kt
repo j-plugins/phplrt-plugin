@@ -1,4 +1,4 @@
-package com.github.xepozz.phplrt.support
+package com.github.xepozz.phplrt.ide
 
 import com.intellij.lang.Commenter
 
