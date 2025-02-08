@@ -1,5 +1,6 @@
-package com.github.xepozz.phplrt.language
+package com.github.xepozz.phplrt.language.parser
 
+import com.github.xepozz.phplrt.language.PhplrtLanguage
 import com.github.xepozz.phplrt.psi.PhplrtFile
 import com.github.xepozz.phplrt.psi.PhplrtTokenSets
 import com.github.xepozz.phplrt.psi.PhplrtTypes
@@ -29,6 +30,6 @@ internal class PhplrtParserDefinition : ParserDefinition {
     override fun createElement(node: ASTNode): PsiElement = PhplrtTypes.Factory.createElement(node)
 
     companion object {
-        val FILE = IFileElementType(PhplrtLanguage.INSTANCE)
+        val FILE = IFileElementType(PhplrtLanguage.Companion.INSTANCE)
     }
 }

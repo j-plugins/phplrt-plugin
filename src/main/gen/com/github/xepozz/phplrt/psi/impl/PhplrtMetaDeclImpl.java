@@ -1,14 +1,19 @@
 // This is a generated file. Not intended for manual editing.
 package com.github.xepozz.phplrt.psi.impl;
 
-import com.github.xepozz.phplrt.psi.*;
+import java.util.List;
+
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.stubs.IStubElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
+
+import com.github.xepozz.phplrt.psi.PhplrtMetaDeclarationBaseImpl;
+import com.github.xepozz.phplrt.psi.*;
+import com.intellij.psi.stubs.IStubElementType;
 
 public class PhplrtMetaDeclImpl extends PhplrtMetaDeclarationBaseImpl implements PhplrtMetaDecl {
 

@@ -17,7 +17,7 @@
                 extensions="pp2"/>
         <lang.parserDefinition
                 language="Phplrt"
-                implementationClass="com.github.xepozz.phplrt.language.PhplrtParserDefinition"/>
+                implementationClass="com.github.xepozz.phplrt.language.parser.PhplrtParserDefinition"/>
         <lang.syntaxHighlighterFactory
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrt.language.PhplrtSyntaxHighlighterFactory"/>

@@ -1,6 +1,6 @@
 package com.github.xepozz.phplrt.support
 
-import com.github.xepozz.phplrt.language.PhplrtLexerAdapter
+import com.github.xepozz.phplrt.language.parser.PhplrtLexerAdapter
 import com.github.xepozz.phplrt.psi.PhplrtTokenSets
 import com.intellij.lang.cacheBuilder.DefaultWordsScanner
 import com.intellij.lang.findUsages.FindUsagesProvider

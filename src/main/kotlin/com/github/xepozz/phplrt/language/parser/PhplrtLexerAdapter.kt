@@ -1,4 +1,4 @@
-package com.github.xepozz.phplrt.language
+package com.github.xepozz.phplrt.language.parser
 
 import com.intellij.lexer.FlexAdapter
 

@@ -1,5 +1,6 @@
 package com.github.xepozz.phplrt.language
 
+import com.github.xepozz.phplrt.language.parser.PhplrtLexerAdapter
 import com.github.xepozz.phplrt.psi.PhplrtTypes
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.HighlighterColors

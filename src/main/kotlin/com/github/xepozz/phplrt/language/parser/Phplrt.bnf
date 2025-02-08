@@ -1,5 +1,5 @@
 {
-  parserClass="com.github.xepozz.phplrt.language.PhplrtParser"
+  parserClass="com.github.xepozz.phplrt.language.parser.PhplrtParser"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
