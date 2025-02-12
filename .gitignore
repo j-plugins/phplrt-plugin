@@ -3,6 +3,8 @@
 .intellijPlatform
 .qodana
 .kotlin
+.cert
+.env
 build
 idea-flex.skeleton
 jflex-*.jar
