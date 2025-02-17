@@ -2,6 +2,11 @@
 
 # PHP Language Recognition Tool (phplrt) Changelog
 
+## [2025.0.4] - 2025-02-17
+
+- chore: fix grammar rules and scanner
+- feat: inject php language to code snippets
+
 ## [2025.0.3] - 2025-02-12
 
 - chore: fix grammar rules and scanner
