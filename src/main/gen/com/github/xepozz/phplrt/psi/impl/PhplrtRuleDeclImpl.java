@@ -54,12 +54,6 @@ public class PhplrtRuleDeclImpl extends PhplrtRuleDeclarationBaseImpl implements
   }
 
   @Override
-  @Nullable
-  public PhplrtRuleModifier getRuleModifier() {
-    return PsiTreeUtil.getChildOfType(this, PhplrtRuleModifier.class);
-  }
-
-  @Override
   public @NotNull String getName() {
     return PhplrtPsiImplUtil.getName(this);
   }
@@ -72,6 +66,11 @@ public class PhplrtRuleDeclImpl extends PhplrtRuleDeclarationBaseImpl implements
   @Override
   public @Nullable PsiElement getNameIdentifier() {
     return PhplrtPsiImplUtil.getNameIdentifier(this);
+  }
+
+  @Override
+  public @Nullable PsiReference getReference() {
+    return PhplrtPsiImplUtil.getReference(this);
   }
 
   @Override

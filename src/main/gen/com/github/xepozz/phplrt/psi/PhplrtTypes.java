@@ -19,7 +19,6 @@ public interface PhplrtTypes {
   IElementType OPERATOR = new PhplrtElementType("OPERATOR");
   IElementType QUANTIFIER = new PhplrtElementType("QUANTIFIER");
   IElementType RULE_DECL = PhplrtElementTypeFactory.factory("RULE_DECL");
-  IElementType RULE_MODIFIER = new PhplrtElementType("RULE_MODIFIER");
   IElementType RULE_REFERENCE = new PhplrtElementType("RULE_REFERENCE");
   IElementType TOKEN_REFERENCE = new PhplrtElementType("TOKEN_REFERENCE");
 
@@ -72,9 +71,6 @@ public interface PhplrtTypes {
       }
       else if (type == RULE_DECL) {
         return new PhplrtRuleDeclImpl(node);
-      }
-      else if (type == RULE_MODIFIER) {
-        return new PhplrtRuleModifierImpl(node);
       }
       else if (type == RULE_REFERENCE) {
         return new PhplrtRuleReferenceImpl(node);

@@ -28,7 +28,7 @@ metaDecl ::= META_START (((TOKEN|SKIP|PRAGMA) identifier VALUE) | (INCLUDE VALUE
     implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
     extends="com.github.xepozz.phplrt.language.psi.stub.PhplrtMetaDeclarationBaseImpl"
     stubClass="com.github.xepozz.phplrt.language.psi.stub.PhplrtMetaDeclarationStub"
-    methods=[getName getValue getNameIdentifier isToken isSkip isPragma getReferences]
+    methods=[getName getValue getNameIdentifier isToken isSkip isPragma getReference getReferences]
 }
 ruleDecl ::= ruleModifier? identifier code? COLON expressions SEMICOLON
 {
@@ -36,7 +36,7 @@ ruleDecl ::= ruleModifier? identifier code? COLON expressions SEMICOLON
     implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
     extends="com.github.xepozz.phplrt.language.psi.stub.PhplrtRuleDeclarationBaseImpl"
     stubClass="com.github.xepozz.phplrt.language.psi.stub.PhplrtRuleDeclarationStub"
-    methods=[getName setName getNameIdentifier getReferences]
+    methods=[getName setName getNameIdentifier getReference getReferences]
 }
 code ::= CODE_DELIMITER INLINE_CODE
 {
@@ -53,12 +53,13 @@ ruleReference ::= identifier PARENTHESES_OPEN PARENTHESES_CLOSE
 {
     mixin="com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl"
     implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
-    methods=[getName setName getNameIdentifier getReferences]
+    methods=[getName setName getNameIdentifier getReference getReferences]
 }
 tokenReference ::= hiddenTokenReference | visibleTokenReference
 {
+    mixin="com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl"
     implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
-    methods=[getName setName getNameIdentifier getReferences]
+    methods=[getName setName getNameIdentifier getReference getReferences]
 }
 private hiddenTokenReference ::= (DOUBLE_COLON identifier DOUBLE_COLON)
 {
@@ -70,4 +71,4 @@ private visibleTokenReference ::= (LEFT_ARROW identifier RIGHT_ARROW)
 }
 identifier ::= LITERAL
 operator ::= OP_OR
-ruleModifier ::= SHARP
+private ruleModifier ::= SHARP

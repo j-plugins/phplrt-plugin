@@ -10,18 +10,17 @@ import com.intellij.psi.ResolveResult
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.stubs.StubIndex
 
-//internal class PhplrtReference(val myElement: PhplrtNamedElement) : PsiReferenceBase<PsiElement>(myElement) {
 internal class PhplrtReference(val myElement: PhplrtNamedElement) :
     PsiPolyVariantReferenceBase<PsiElement>(myElement), PsiPolyVariantReference {
     init {
         rangeInElement =
             myElement.nameIdentifier?.textRangeInParent ?: myElement.textRange.shiftLeft(myElement.textOffset)
-        println("range for: ${myElement.name} is ${rangeInElement}, text: ${myElement.text}")
+//        println("range for: ${myElement.name} is ${rangeInElement}, text: ${myElement.text}")
     }
 
     override fun multiResolve(incompleteCode: Boolean): Array<out ResolveResult?> {
 
-        println("multiResolve ${myElement.name}")
+//        println("multiResolve ${myElement.name}")
         val project = myElement.project
         val result = StubIndex.getElements(
             PhplrtStubIndex.KEY,
@@ -33,7 +32,7 @@ internal class PhplrtReference(val myElement: PhplrtNamedElement) :
 //        val index = FileBasedIndex.getInstance()
 //            .processValues(PhplrtStubIndex)
 
-        println("print scope $result")
+//        println("print scope $result")
         return PsiElementResolveResult.createResults(result)
     }
 }

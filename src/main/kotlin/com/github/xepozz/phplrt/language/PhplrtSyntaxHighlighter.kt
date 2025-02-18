@@ -22,7 +22,6 @@ class PhplrtSyntaxHighlighter : SyntaxHighlighterBase() {
         PhplrtTypes.RIGHT_ARROW -> BRACES_KEYS
         PhplrtTypes.PARENTHESES_OPEN -> PARENTHESES_KEYS
         PhplrtTypes.PARENTHESES_CLOSE -> PARENTHESES_KEYS
-        PhplrtTypes.RULE_MODIFIER -> KEY_KEYS
 
         PhplrtTypes.META_START -> KEY_KEYS
         PhplrtTypes.TOKEN -> KEY_KEYS

@@ -8,12 +8,12 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl;
 import com.github.xepozz.phplrt.psi.*;
 import com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil;
 import com.intellij.psi.PsiReference;
 
-public class PhplrtTokenReferenceImpl extends ASTWrapperPsiElement implements PhplrtTokenReference {
+public class PhplrtTokenReferenceImpl extends PhplrtNamedElementImpl implements PhplrtTokenReference {
 
   public PhplrtTokenReferenceImpl(@NotNull ASTNode node) {
     super(node);
@@ -48,6 +48,11 @@ public class PhplrtTokenReferenceImpl extends ASTWrapperPsiElement implements Ph
   @Override
   public @Nullable PsiElement getNameIdentifier() {
     return PhplrtPsiImplUtil.getNameIdentifier(this);
+  }
+
+  @Override
+  public @Nullable PsiReference getReference() {
+    return PhplrtPsiImplUtil.getReference(this);
   }
 
   @Override

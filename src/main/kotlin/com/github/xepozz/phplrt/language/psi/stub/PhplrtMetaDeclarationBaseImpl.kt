@@ -32,7 +32,7 @@ abstract class PhplrtMetaDeclarationBaseImpl :
         val keyNode = this.node.findChildByType(PhplrtTypes.IDENTIFIER)
         if (keyNode != null) {
             val property = PhplrtElementFactory.createMetaDeclaration(this.project, name)
-//            println("create new TokenDeclaration: $name of ${this.node}, res: $property")
+            println("create new MetaDeclaration: $name of ${this.node}, res: $property")
             val newKeyNode = property?.node?.findChildByType(PhplrtTypes.IDENTIFIER) ?: return this
             this.node.replaceChild(keyNode, newKeyNode)
         }

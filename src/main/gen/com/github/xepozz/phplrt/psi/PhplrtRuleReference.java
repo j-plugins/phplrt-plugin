@@ -18,6 +18,8 @@ public interface PhplrtRuleReference extends PhplrtNamedElement {
 
   @Nullable PsiElement getNameIdentifier();
 
+  @Nullable PsiReference getReference();
+
   @NotNull PsiReference @NotNull [] getReferences();
 
 }

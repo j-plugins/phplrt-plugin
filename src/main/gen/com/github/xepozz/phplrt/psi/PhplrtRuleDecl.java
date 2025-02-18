@@ -20,14 +20,13 @@ public interface PhplrtRuleDecl extends PhplrtNamedElement, StubBasedPsiElement<
   @NotNull
   PhplrtIdentifier getIdentifier();
 
-  @Nullable
-  PhplrtRuleModifier getRuleModifier();
-
   @NotNull String getName();
 
   @Nullable PsiElement setName(@NotNull String name);
 
   @Nullable PsiElement getNameIdentifier();
+
+  @Nullable PsiReference getReference();
 
   @NotNull PsiReference @NotNull [] getReferences();
 

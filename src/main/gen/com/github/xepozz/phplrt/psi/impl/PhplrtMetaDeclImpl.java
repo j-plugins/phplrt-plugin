@@ -47,11 +47,6 @@ public class PhplrtMetaDeclImpl extends PhplrtMetaDeclarationBaseImpl implements
   }
 
   @Override
-  public @NotNull String getValue() {
-    return PhplrtPsiImplUtil.getValue(this);
-  }
-
-  @Override
   public @Nullable PsiElement getNameIdentifier() {
     return PhplrtPsiImplUtil.getNameIdentifier(this);
   }
@@ -69,6 +64,11 @@ public class PhplrtMetaDeclImpl extends PhplrtMetaDeclarationBaseImpl implements
   @Override
   public boolean isPragma() {
     return PhplrtPsiImplUtil.isPragma(this);
+  }
+
+  @Override
+  public @Nullable PsiReference getReference() {
+    return PhplrtPsiImplUtil.getReference(this);
   }
 
   @Override

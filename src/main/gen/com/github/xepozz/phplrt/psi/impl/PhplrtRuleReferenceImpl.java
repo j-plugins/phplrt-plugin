@@ -51,6 +51,11 @@ public class PhplrtRuleReferenceImpl extends PhplrtNamedElementImpl implements P
   }
 
   @Override
+  public @Nullable PsiReference getReference() {
+    return PhplrtPsiImplUtil.getReference(this);
+  }
+
+  @Override
   public @NotNull PsiReference @NotNull [] getReferences() {
     return PhplrtPsiImplUtil.getReferences(this);
   }

@@ -16,7 +16,9 @@ public interface PhplrtMetaDecl extends PhplrtNamedElement, StubBasedPsiElement<
 
   @NotNull String getName();
 
-  @NotNull String getValue();
+  //WARNING: getValue(...) is skipped
+  //matching getValue(PhplrtMetaDecl, ...)
+  //methods are not found in PhplrtPsiImplUtil
 
   @Nullable PsiElement getNameIdentifier();
 
@@ -25,6 +27,8 @@ public interface PhplrtMetaDecl extends PhplrtNamedElement, StubBasedPsiElement<
   boolean isSkip();
 
   boolean isPragma();
+
+  @Nullable PsiReference getReference();
 
   @NotNull PsiReference @NotNull [] getReferences();
 

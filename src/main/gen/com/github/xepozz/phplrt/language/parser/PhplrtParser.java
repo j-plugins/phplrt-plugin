@@ -307,14 +307,8 @@ public class PhplrtParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // SHARP
-  public static boolean ruleModifier(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ruleModifier")) return false;
-    if (!nextTokenIs(b, SHARP)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, SHARP);
-    exit_section_(b, m, RULE_MODIFIER, r);
-    return r;
+  static boolean ruleModifier(PsiBuilder b, int l) {
+    return consumeToken(b, SHARP);
   }
 
   /* ********************************************************** */

@@ -41,10 +41,6 @@ public class PhplrtVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
-  public void visitRuleModifier(@NotNull PhplrtRuleModifier o) {
-    visitPsiElement(o);
-  }
-
   public void visitRuleReference(@NotNull PhplrtRuleReference o) {
     visitNamedElement(o);
   }
