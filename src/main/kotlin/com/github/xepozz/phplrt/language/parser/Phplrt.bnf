@@ -29,15 +29,15 @@ metaDecl ::= META_START (((TOKEN|SKIP|PRAGMA) identifier VALUE) | (INCLUDE VALUE
     implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
     extends="com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationBaseImpl"
     stubClass="com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationStub"
-    methods=[getName getValue getNameIdentifier isToken isSkip isPragma]
+    methods=[getName getValue getNameIdentifier isToken isSkip isPragma getReferences]
 }
 //ruleDecl ::= (ruleModifier? identifier (CODE_DELIMITER CURLY_BRACKETS_LEFT INLINE_CODE CURLY_BRACKETS_RIGHT)? COLON expressions SEMICOLON)
 ruleDecl ::= ruleModifier? identifier code? COLON expressions SEMICOLON
 {
-    pin=4
-//    mixin="com.github.xepozz.phplrt.psi.impl.PhplrtNamedElementImpl"
-//    implements=["com.github.xepozz.phplrt.psi.PhplrtNamedElement"]
-//    methods=[getName setName getValue setValue getNameIdentifier]
+    pin=1
+    mixin="com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl"
+    implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
+    methods=[getName setName getNameIdentifier getReferences]
 }
 code ::= CODE_DELIMITER INLINE_CODE
 {
@@ -51,18 +51,18 @@ private grouped_expression ::= PARENTHESES_OPEN expressions PARENTHESES_CLOSE
 private expression_inner ::= (tokenReference | ruleReference)
 quantifier ::= QUANTIFIER_ZERO_ONE | QUANTIFIER_ANY | QUANTIFIER_ONE_INFINITE
 ruleReference ::= identifier PARENTHESES_OPEN PARENTHESES_CLOSE
-//{
-//    mixin="com.github.xepozz.phplrt.psi.impl.PhplrtNamedElementImpl"
-//    implements=["com.github.xepozz.phplrt.psi.PhplrtNamedElement" "com.intellij.model.psi.PsiExternalReferenceHost"]
-//    methods=[getName setName getNameIdentifier]
-//}
+{
+    mixin="com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl"
+    implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
+    methods=[getName setName getNameIdentifier getReferences]
+}
 tokenReference ::= hiddenTokenReference | visibleTokenReference
 {
     mixin="com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl"
     implements=["com.github.xepozz.phplrt.language.psi.PhplrtNamedElement"]
     extends="com.github.xepozz.phplrt.language.psi.PhplrtTokenReferenceBaseImpl"
     stubClass=["com.github.xepozz.phplrt.language.psi.PhplrtTokenReferenceStub"]
-    methods=[getName setName getNameIdentifier]
+    methods=[getName setName getNameIdentifier getReferences]
 }
 private hiddenTokenReference ::= (DOUBLE_COLON identifier DOUBLE_COLON)
 {

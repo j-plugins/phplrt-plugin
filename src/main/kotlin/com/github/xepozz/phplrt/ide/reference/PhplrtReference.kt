@@ -1,25 +1,38 @@
 package com.github.xepozz.phplrt.ide.reference
 
-import com.intellij.openapi.util.TextRange
+import com.github.xepozz.phplrt.language.PhplrtTokenStubIndex
+import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiElementResolveResult
 import com.intellij.psi.PsiPolyVariantReference
 import com.intellij.psi.PsiPolyVariantReferenceBase
 import com.intellij.psi.ResolveResult
+import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.stubs.StubIndex
 
-internal class PhplrtReference(element: PsiElement, textRange: TextRange) :
-    PsiPolyVariantReferenceBase<PsiElement>(element, textRange), PsiPolyVariantReference {
+//internal class PhplrtReference(val myElement: PhplrtNamedElement) : PsiReferenceBase<PsiElement>(myElement) {
+internal class PhplrtReference(val myElement: PhplrtNamedElement) :
+    PsiPolyVariantReferenceBase<PsiElement>(myElement), PsiPolyVariantReference {
+    init {
+        rangeInElement = myElement.nameIdentifier?.textRange ?: myElement.textRange
+        println("range for: ${myElement.name} is ${rangeInElement}, text: ${myElement.text}")
+    }
 
-    override fun multiResolve(incompleteCode: Boolean): Array<ResolveResult?> {
-        myElement?.project
+    override fun multiResolve(incompleteCode: Boolean): Array<out ResolveResult?> {
 
-        println("multiResolve ${element}, ${element.text}")
+        println("multiResolve")
+        val project = myElement.project
+        val result = StubIndex.getElements(
+            PhplrtTokenStubIndex.KEY,
+            myElement.name!!,
+            project,
+            GlobalSearchScope.projectScope(project),
+            PhplrtNamedElement::class.java,
+        )
+//        val index = FileBasedIndex.getInstance()
+//            .processValues(PhplrtTokenStubIndex)
 
-        return emptyArray()
-//        val properties: List<SimpleProperty?> = SimpleUtil.findProperties(project, key)
-//        val results: List<ResolveResult?> = ArrayList()
-//        for (property in properties) {
-//            results.add(PsiElementResolveResult(property))
-//        }
-//        return results.toArray(kotlin.arrayOfNulls<ResolveResult>(0))
+        println("print scope $result")
+        return PsiElementResolveResult.createResults(result)
     }
 }

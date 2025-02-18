@@ -8,11 +8,12 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl;
 import com.github.xepozz.phplrt.psi.*;
 import com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil;
+import com.intellij.psi.PsiReference;
 
-public class PhplrtRuleReferenceImpl extends ASTWrapperPsiElement implements PhplrtRuleReference {
+public class PhplrtRuleReferenceImpl extends PhplrtNamedElementImpl implements PhplrtRuleReference {
 
   public PhplrtRuleReferenceImpl(@NotNull ASTNode node) {
     super(node);
@@ -32,6 +33,26 @@ public class PhplrtRuleReferenceImpl extends ASTWrapperPsiElement implements Php
   @NotNull
   public PhplrtIdentifier getIdentifier() {
     return notNullChild(PsiTreeUtil.getChildOfType(this, PhplrtIdentifier.class));
+  }
+
+  @Override
+  public @NotNull String getName() {
+    return PhplrtPsiImplUtil.getName(this);
+  }
+
+  @Override
+  public @Nullable PsiElement setName(@NotNull String name) {
+    return PhplrtPsiImplUtil.setName(this, name);
+  }
+
+  @Override
+  public @Nullable PsiElement getNameIdentifier() {
+    return PhplrtPsiImplUtil.getNameIdentifier(this);
+  }
+
+  @Override
+  public @NotNull PsiReference @NotNull [] getReferences() {
+    return PhplrtPsiImplUtil.getReferences(this);
   }
 
 }

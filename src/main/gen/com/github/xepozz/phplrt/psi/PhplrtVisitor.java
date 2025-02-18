@@ -38,7 +38,7 @@ public class PhplrtVisitor extends PsiElementVisitor {
   }
 
   public void visitRuleDecl(@NotNull PhplrtRuleDecl o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitRuleModifier(@NotNull PhplrtRuleModifier o) {
@@ -46,7 +46,7 @@ public class PhplrtVisitor extends PsiElementVisitor {
   }
 
   public void visitRuleReference(@NotNull PhplrtRuleReference o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitTokenReference(@NotNull PhplrtTokenReference o) {

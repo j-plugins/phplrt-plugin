@@ -36,8 +36,8 @@ class PhplrtTokenIndex : AbstractIndex<TokenIndexType>() {
         val metaTokens = PsiTreeUtil.findChildrenOfType(psiFile, PhplrtMetaDecl::class.java)
         for (metaDecl in metaTokens) {
             if (metaDecl.isToken) {
-                result[metaDecl.name]
-                result.put(metaDecl.name, null)
+                val name = metaDecl.name
+                result.put(name, null)
             }
         }
 

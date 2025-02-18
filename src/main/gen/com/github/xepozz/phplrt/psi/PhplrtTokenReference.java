@@ -5,6 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement;
+import com.intellij.psi.PsiReference;
 
 public interface PhplrtTokenReference extends PhplrtNamedElement {
 
@@ -16,5 +17,7 @@ public interface PhplrtTokenReference extends PhplrtNamedElement {
   @Nullable PsiElement setName(@NotNull String name);
 
   @Nullable PsiElement getNameIdentifier();
+
+  @NotNull PsiReference @NotNull [] getReferences();
 
 }

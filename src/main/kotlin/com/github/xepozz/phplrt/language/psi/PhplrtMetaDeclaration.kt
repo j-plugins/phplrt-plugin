@@ -26,7 +26,10 @@ abstract class PhplrtMetaDeclarationBaseImpl :
         return if (stub != null) StringUtil.notNullize(stub.name) else this.nameIdentifier!!.text
     }
 
-    override fun getNameIdentifier() = this.node.psi
+    override fun getNameIdentifier(): PsiElement? {
+        val keyNode = this.node.findChildByType(PhplrtTypes.IDENTIFIER)
+        return keyNode?.psi
+    }
 
     override fun setName(name: String): PsiElement {
         val keyNode = this.node.findChildByType(PhplrtTypes.IDENTIFIER)
@@ -42,7 +45,7 @@ abstract class PhplrtMetaDeclarationBaseImpl :
     }
 
     override fun getReference(): PsiReference? {
-        return PhplrtReference(this, this.textRange)
+        return PhplrtReference(this)
     }
 
     override fun getPresentation(): ItemPresentation? {

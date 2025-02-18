@@ -5,6 +5,7 @@
     <vendor email="xepozz@list.ru" url="https://github.com/xepozz">Dmitrii Derepko (@xepozz)</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.jetbrains.php</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
@@ -23,8 +24,7 @@
                 implementationClass="com.github.xepozz.phplrt.language.PhplrtSyntaxHighlighterFactory"/>
         <psi.referenceContributor
                 language="Phplrt"
-                implementation="com.github.xepozz.phplrt.ide.reference.PhplrtReferenceContributor"
-        />
+                implementation="com.github.xepozz.phplrt.ide.reference.PhplrtReferenceContributor"/>
         <annotator
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrt.language.PhplrtAnnotator"/>
@@ -47,7 +47,7 @@
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrt.ide.completion.PhplrtCompletionContributor"/>
 
-        <stubIndex implementation="com.github.xepozz.phplrt.language.PhplrtTokenIndex"/>
+        <stubIndex implementation="com.github.xepozz.phplrt.language.PhplrtTokenStubIndex"/>
         <fileBasedIndex implementation="com.github.xepozz.phplrt.ide.index.PhplrtTokenIndex"/>
     </extensions>
 </idea-plugin>

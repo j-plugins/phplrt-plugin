@@ -18,7 +18,7 @@ import com.intellij.psi.stubs.StubInputStream
 import com.intellij.psi.stubs.StubOutputStream
 import com.intellij.psi.tree.IStubFileElementType
 
-class PhplrtTokenIndex : StringStubIndexExtension<PhplrtNamedElement>() {
+class PhplrtTokenStubIndex : StringStubIndexExtension<PhplrtNamedElement>() {
     companion object {
         const val VERSION = 1
         val KEY = StubIndexKey.createIndexKey<String, PhplrtNamedElement>("phplrt.token.name")
@@ -46,7 +46,7 @@ abstract class PhplrtNamedStubElementType<S : NamedStubBase<T>, T : PhplrtNamedE
     override fun indexStub(stub: S, sink: IndexSink) {
         val name = stub.name
         if (name != null) {
-            sink.occurrence(PhplrtTokenIndex.KEY, name)
+            sink.occurrence(PhplrtTokenStubIndex.KEY, name)
         }
     }
 }

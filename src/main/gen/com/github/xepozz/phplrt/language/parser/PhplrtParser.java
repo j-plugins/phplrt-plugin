@@ -277,15 +277,14 @@ public class PhplrtParser implements PsiParser, LightPsiParser {
   // ruleModifier? identifier code? COLON expressions SEMICOLON
   public static boolean ruleDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ruleDecl")) return false;
-    if (!nextTokenIs(b, "<rule decl>", LITERAL, SHARP)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, RULE_DECL, "<rule decl>");
     r = ruleDecl_0(b, l + 1);
-    r = r && identifier(b, l + 1);
-    r = r && ruleDecl_2(b, l + 1);
-    r = r && consumeToken(b, COLON);
-    p = r; // pin = 4
-    r = r && report_error_(b, expressions(b, l + 1));
+    p = r; // pin = 1
+    r = r && report_error_(b, identifier(b, l + 1));
+    r = p && report_error_(b, ruleDecl_2(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, COLON)) && r;
+    r = p && report_error_(b, expressions(b, l + 1)) && r;
     r = p && consumeToken(b, SEMICOLON) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;

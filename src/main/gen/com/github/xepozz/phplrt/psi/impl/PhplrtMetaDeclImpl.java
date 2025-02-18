@@ -11,6 +11,7 @@ import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
 import com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationBaseImpl;
 import com.github.xepozz.phplrt.psi.*;
 import com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil;
+import com.intellij.psi.PsiReference;
 import com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationStub;
 import com.intellij.psi.stubs.IStubElementType;
 
@@ -68,6 +69,11 @@ public class PhplrtMetaDeclImpl extends PhplrtMetaDeclarationBaseImpl implements
   @Override
   public boolean isPragma() {
     return PhplrtPsiImplUtil.isPragma(this);
+  }
+
+  @Override
+  public @NotNull PsiReference @NotNull [] getReferences() {
+    return PhplrtPsiImplUtil.getReferences(this);
   }
 
 }

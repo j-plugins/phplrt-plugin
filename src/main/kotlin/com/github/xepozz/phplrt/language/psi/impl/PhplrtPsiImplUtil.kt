@@ -4,6 +4,7 @@ import com.github.xepozz.phplrt.language.psi.PhplrtElementFactory
 import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement
 import com.github.xepozz.phplrt.psi.PhplrtTypes
 import com.intellij.psi.PsiElement
+import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 
 class PhplrtPsiImplUtil {
     companion object {
@@ -12,6 +13,12 @@ class PhplrtPsiImplUtil {
             val keyNode = element.node.findChildByType(PhplrtTypes.IDENTIFIER)
             return keyNode?.psi
         }
+////        @JvmStatic
+////        fun getNameIdentifier(element: PhplrtMetaDecl) = element.nameIdentifier
+////        @JvmStatic
+////        fun getNameIdentifier(element: PhplrtRuleDecl) = element.nameIdentifier
+//        @JvmStatic
+//        fun getNameIdentifier(element: PsiNameIdentifierOwner) = element.nameIdentifier
 
         @JvmStatic
         fun isToken(element: PhplrtNamedElement): Boolean {
@@ -36,7 +43,7 @@ class PhplrtPsiImplUtil {
 
         @JvmStatic
         fun getName(element: PhplrtNamedElement): String {
-            val valueNode = getNameIdentifier(element)
+            val valueNode = element.nameIdentifier
             return valueNode?.text ?: ""
         }
 
@@ -51,5 +58,8 @@ class PhplrtPsiImplUtil {
 
             return element
         }
+
+        @JvmStatic
+        fun getReferences(element: PhplrtNamedElement) = ReferenceProvidersRegistry.getReferencesFromProviders(element)
     }
 }

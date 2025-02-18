@@ -11,6 +11,7 @@ import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
 import com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl;
 import com.github.xepozz.phplrt.psi.*;
 import com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil;
+import com.intellij.psi.PsiReference;
 
 public class PhplrtTokenReferenceImpl extends PhplrtNamedElementImpl implements PhplrtTokenReference {
 
@@ -47,6 +48,11 @@ public class PhplrtTokenReferenceImpl extends PhplrtNamedElementImpl implements 
   @Override
   public @Nullable PsiElement getNameIdentifier() {
     return PhplrtPsiImplUtil.getNameIdentifier(this);
+  }
+
+  @Override
+  public @NotNull PsiReference @NotNull [] getReferences() {
+    return PhplrtPsiImplUtil.getReferences(this);
   }
 
 }

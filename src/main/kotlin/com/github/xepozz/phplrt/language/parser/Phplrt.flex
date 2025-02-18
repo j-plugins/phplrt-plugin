@@ -4,9 +4,11 @@ import com.intellij.psi.tree.IElementType;
 import com.github.xepozz.phplrt.psi.PhplrtTypes;
 import com.intellij.psi.TokenType;
 import com.intellij.lexer.FlexLexer;
+import com.jetbrains.php.lang.lexer.PhpCodeFragmentLexer;
 
 %%
 
+%public
 %class PhplrtLexer
 %implements FlexLexer
 %unicode
@@ -14,6 +16,10 @@ import com.intellij.lexer.FlexLexer;
 %type IElementType
 %eof{  return;
 %eof}
+
+%{
+ int braceCount;
+%}
 
 META_START="%"
 COLON=":"
@@ -42,18 +48,33 @@ LITERAL=[A-Za-z_][A-Za-z0-9_]*
 END_OF_LINE_COMMENT="//"[^\n]*[^\n]?
 MULTILINE_COMMENT=\/\*\*[\s\S]*?\*\/
 
+
+
+NNL        = [^\u2028\u2029\u000A\u000B\u000C\u000D\u0085]
+
+JavaComment = {TraditionalComment}|{EndOfLineComment}
+TraditionalComment = "/*"{CommentContent}\*+"/"
+EndOfLineComment = "//" {NNL}*
+CommentContent = ([^*]|\*+[^*/])*
+StringCharacter = [^\u2028\u2029\u000A\u000B\u000C\u000D\u0085\"\'\\]
+StringLiteral = (\"({StringCharacter})*\") | (\'({StringCharacter})*\')
+JavaRest = [^\{\}\"\'/]|"/"[^*/]
+JavaCode = ({JavaRest}|{StringLiteral}|{JavaComment})+
+
+
 %state WAITING_VALUE
 %state WAITING_LITERAL
 %state META_DECLARATION
 %state RULE_DECLARATION
-%state INLINE_CODE
+%state INLINE_CODE, BEFORE_INLINE_CODE, AFTER_INLINE_CODE
+
 
 %%
 <YYINITIAL> {
     {META_START}                                                { yybegin(META_DECLARATION); return PhplrtTypes.META_START; }
     {LITERAL}                                                   { yybegin(RULE_DECLARATION); return PhplrtTypes.LITERAL; }
-}
     {SHARP}                                                     { yybegin(RULE_DECLARATION); return PhplrtTypes.SHARP; }
+}
 
 <META_DECLARATION> {
     "token"                                                     { yybegin(WAITING_LITERAL); return PhplrtTypes.TOKEN; }
@@ -63,14 +84,18 @@ MULTILINE_COMMENT=\/\*\*[\s\S]*?\*\/
 }
 <RULE_DECLARATION> {
     {LITERAL}                                                   { yybegin(RULE_DECLARATION); return PhplrtTypes.LITERAL; }
-    {CODE_DELIMITER}                                            { yybegin(INLINE_CODE); return PhplrtTypes.CODE_DELIMITER; }
+    {CODE_DELIMITER}                                            { yybegin(BEFORE_INLINE_CODE); return PhplrtTypes.CODE_DELIMITER; }
 }
-    {COLON}                                                     { return PhplrtTypes.COLON; }
+{COLON}                                                         { return PhplrtTypes.COLON; }
+
+<BEFORE_INLINE_CODE> "{"                                        { yybegin(INLINE_CODE); }
+<AFTER_INLINE_CODE> "}"                                         { yybegin(YYINITIAL); }
 
 <INLINE_CODE> {
-//    {CURLY_BRACKETS_LEFT}                                       { yybegin(YYINITIAL); return PhplrtTypes.CURLY_BRACKETS_LEFT; }
-//    {CURLY_BRACKETS_RIGHT}                                      { yybegin(YYINITIAL); return PhplrtTypes.CURLY_BRACKETS_RIGHT; }
-    {CURLY_BRACKETS_LEFT}.*?{CURLY_BRACKETS_RIGHT}              { return PhplrtTypes.INLINE_CODE; }
+  "{"        { braceCount++; }
+  "}"        { if (braceCount > 0) braceCount--; else { yybegin(AFTER_INLINE_CODE); return PhplrtTypes.INLINE_CODE; } }
+  {JavaCode} {  }
+//  <<EOF>>    { nextState=REGEXPSTART; yybegin(REPORT_UNCLOSED); return FLEX_RAW; }
 }
 
 [ \t\f\s\n]+                                                     { return TokenType.WHITE_SPACE; }
@@ -85,7 +110,7 @@ MULTILINE_COMMENT=\/\*\*[\s\S]*?\*\/
 
 
 {LITERAL}                                                        { return PhplrtTypes.LITERAL; }
-{SEMICOLON}                                                      { return PhplrtTypes.SEMICOLON; }
+{SEMICOLON}                                                      { yybegin(YYINITIAL); return PhplrtTypes.SEMICOLON; }
 {OP_OR}                                                          { return PhplrtTypes.OP_OR; }
 {QUANTIFIER_ZERO_ONE}                                            { return PhplrtTypes.QUANTIFIER_ZERO_ONE; }
 {QUANTIFIER_ANY}                                                 { return PhplrtTypes.QUANTIFIER_ANY; }

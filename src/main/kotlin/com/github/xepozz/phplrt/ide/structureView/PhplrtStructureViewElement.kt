@@ -29,7 +29,7 @@ class PhplrtStructureViewElement(val item: PsiElement) : SortableTreeElement, Ps
         return when (item) {
             is PhplrtFile -> "Phplrt File"
             is PhplrtMetaDecl -> item.name ?: "Unknown meta declaration"
-            is PhplrtRuleDecl -> item.identifier.text
+            is PhplrtRuleDecl -> item.identifier?.text ?: "item.identifier?.text"
             is PhplrtNamedElement -> item.name ?: "Unknown phplrt token"
             else -> "Unknown"
         }

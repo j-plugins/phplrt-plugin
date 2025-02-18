@@ -43,7 +43,7 @@ abstract class PhplrtTokenReferenceBaseImpl :
     }
 
     override fun getReference(): PsiReference? {
-        return PhplrtReference(this, this.textRange)
+        return PhplrtReference(this)
     }
 
     override fun getPresentation(): ItemPresentation? {

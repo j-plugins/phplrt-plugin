@@ -7,6 +7,7 @@ import com.intellij.psi.PsiElement;
 import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement;
 import com.intellij.psi.StubBasedPsiElement;
 import com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationStub;
+import com.intellij.psi.PsiReference;
 
 public interface PhplrtMetaDecl extends PhplrtNamedElement, StubBasedPsiElement<PhplrtMetaDeclarationStub> {
 
@@ -24,5 +25,7 @@ public interface PhplrtMetaDecl extends PhplrtNamedElement, StubBasedPsiElement<
   boolean isSkip();
 
   boolean isPragma();
+
+  @NotNull PsiReference @NotNull [] getReferences();
 
 }
