@@ -1,13 +1,12 @@
-package com.github.xepozz.phplrt.language.psi
+package com.github.xepozz.phplrt.language.psi.stub
 
 import com.github.xepozz.phplrt.PhplrtIcons
 import com.github.xepozz.phplrt.ide.reference.PhplrtReference
-import com.github.xepozz.phplrt.language.PhplrtStubbedPsiElementBase
+import com.github.xepozz.phplrt.language.psi.PhplrtElementFactory
 import com.github.xepozz.phplrt.psi.PhplrtMetaDecl
 import com.github.xepozz.phplrt.psi.PhplrtTypes
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
-import com.intellij.openapi.util.text.StringUtil
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.stubs.IStubElementType
@@ -22,21 +21,19 @@ abstract class PhplrtMetaDeclarationBaseImpl :
     constructor(node: ASTNode) : super(node)
 
     override fun getName(): String {
-        val stub = stub
-        return if (stub != null) StringUtil.notNullize(stub.name) else this.nameIdentifier!!.text
+        return stub?.name ?: this.nameIdentifier!!.text
     }
 
     override fun getNameIdentifier(): PsiElement? {
-        val keyNode = this.node.findChildByType(PhplrtTypes.IDENTIFIER)
-        return keyNode?.psi
+        return this.node.findChildByType(PhplrtTypes.IDENTIFIER)?.psi
     }
 
     override fun setName(name: String): PsiElement {
         val keyNode = this.node.findChildByType(PhplrtTypes.IDENTIFIER)
         if (keyNode != null) {
-            val property = PhplrtElementFactory.createTokenDeclaration(this.project, name)
+            val property = PhplrtElementFactory.createMetaDeclaration(this.project, name)
 //            println("create new TokenDeclaration: $name of ${this.node}, res: $property")
-            val newKeyNode = property?.firstChild?.node ?: return this
+            val newKeyNode = property?.node?.findChildByType(PhplrtTypes.IDENTIFIER) ?: return this
             this.node.replaceChild(keyNode, newKeyNode)
         }
 //        println("setName: $name of ${this.node}")
@@ -56,14 +53,6 @@ abstract class PhplrtMetaDeclarationBaseImpl :
             override fun getIcon(unused: Boolean) = PhplrtIcons.FILE
         }
     }
-}
-
-
-abstract class PhplrtNamedStubbedPsiElementBase<T : StubElement<*>> :
-    PhplrtStubbedPsiElementBase<T>,
-    PhplrtNamedElement {
-    constructor(stub: T, nodeType: IStubElementType<*, *>) : super(stub, nodeType)
-    constructor(node: ASTNode) : super(node)
 }
 
 

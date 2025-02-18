@@ -1,13 +1,12 @@
-package com.github.xepozz.phplrt.language.psi
+package com.github.xepozz.phplrt.language.psi.stub
 
 import com.github.xepozz.phplrt.PhplrtIcons
 import com.github.xepozz.phplrt.ide.reference.PhplrtReference
-import com.github.xepozz.phplrt.psi.PhplrtTokenReference
+import com.github.xepozz.phplrt.language.psi.PhplrtElementFactory
+import com.github.xepozz.phplrt.psi.PhplrtRuleDecl
 import com.github.xepozz.phplrt.psi.PhplrtTypes
 import com.intellij.lang.ASTNode
-import com.intellij.model.psi.PsiExternalReferenceHost
 import com.intellij.navigation.ItemPresentation
-import com.intellij.openapi.util.text.StringUtil
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.stubs.IStubElementType
@@ -16,23 +15,24 @@ import com.intellij.psi.stubs.StubElement
 import com.intellij.util.io.StringRef
 
 
-abstract class PhplrtTokenReferenceBaseImpl :
-    PhplrtNamedStubbedPsiElementBase<PhplrtTokenReferenceStub>,
-    PhplrtTokenReference, PsiExternalReferenceHost {
-    constructor(stub: PhplrtTokenReferenceStub, nodeType: IStubElementType<*, *>) : super(stub, nodeType)
+abstract class PhplrtRuleDeclarationBaseImpl :
+    PhplrtNamedStubbedPsiElementBase<PhplrtRuleDeclarationStub>,
+    PhplrtRuleDecl {
+    constructor(stub: PhplrtRuleDeclarationStub, nodeType: IStubElementType<*, *>) : super(stub, nodeType)
     constructor(node: ASTNode) : super(node)
 
     override fun getName(): String {
-        val stub = stub
-        return if (stub != null) StringUtil.notNullize(stub.name) else this.nameIdentifier!!.text
+        return stub?.name ?: this.nameIdentifier!!.text
     }
 
-    override fun getNameIdentifier(): PsiElement? = this.node.psi
+    override fun getNameIdentifier(): PsiElement? {
+        return this.node.findChildByType(PhplrtTypes.IDENTIFIER)?.psi
+    }
 
     override fun setName(name: String): PsiElement {
         val keyNode = this.node.findChildByType(PhplrtTypes.IDENTIFIER)
         if (keyNode != null) {
-            val property = PhplrtElementFactory.createTokenReference(this.project, name)
+            val property = PhplrtElementFactory.createRuleDeclaration(this.project, name)
             println("create new TokenReference: $name of ${this.node}, res: $property")
             val newKeyNode = property?.firstChild?.node ?: return this
             this.node.replaceChild(keyNode, newKeyNode)
@@ -56,7 +56,7 @@ abstract class PhplrtTokenReferenceBaseImpl :
     }
 }
 
-class PhplrtTokenReferenceStub : NamedStubBase<PhplrtTokenReference> {
+class PhplrtRuleDeclarationStub : NamedStubBase<PhplrtRuleDecl> {
     constructor(parent: StubElement<*>?, elementType: IStubElementType<*, *>, name: StringRef?) : super(
         parent,
         elementType,

@@ -18,7 +18,7 @@ public interface PhplrtTypes {
   IElementType META_DECL = PhplrtElementTypeFactory.factory("META_DECL");
   IElementType OPERATOR = new PhplrtElementType("OPERATOR");
   IElementType QUANTIFIER = new PhplrtElementType("QUANTIFIER");
-  IElementType RULE_DECL = new PhplrtElementType("RULE_DECL");
+  IElementType RULE_DECL = PhplrtElementTypeFactory.factory("RULE_DECL");
   IElementType RULE_MODIFIER = new PhplrtElementType("RULE_MODIFIER");
   IElementType RULE_REFERENCE = new PhplrtElementType("RULE_REFERENCE");
   IElementType TOKEN_REFERENCE = new PhplrtElementType("TOKEN_REFERENCE");

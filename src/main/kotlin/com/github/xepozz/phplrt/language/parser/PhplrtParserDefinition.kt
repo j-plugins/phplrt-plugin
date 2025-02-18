@@ -1,6 +1,6 @@
 package com.github.xepozz.phplrt.language.parser
 
-import com.github.xepozz.phplrt.language.PhplrtLanguage
+import com.github.xepozz.phplrt.language.PhplrtFileElementType
 import com.github.xepozz.phplrt.language.psi.PhplrtFile
 import com.github.xepozz.phplrt.language.psi.PhplrtTokenSets
 import com.github.xepozz.phplrt.psi.PhplrtTypes
@@ -9,7 +9,6 @@ import com.intellij.lang.ParserDefinition
 import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 
 internal class PhplrtParserDefinition : ParserDefinition {
@@ -30,6 +29,6 @@ internal class PhplrtParserDefinition : ParserDefinition {
     override fun createElement(node: ASTNode): PsiElement = PhplrtTypes.Factory.createElement(node)
 
     companion object {
-        val FILE = IFileElementType(PhplrtLanguage.Companion.INSTANCE)
+        val FILE = PhplrtFileElementType.INSTANCE
     }
 }

@@ -8,12 +8,18 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.github.xepozz.phplrt.psi.PhplrtTypes.*;
-import com.github.xepozz.phplrt.language.psi.impl.PhplrtNamedElementImpl;
+import com.github.xepozz.phplrt.language.psi.stub.PhplrtRuleDeclarationBaseImpl;
 import com.github.xepozz.phplrt.psi.*;
 import com.github.xepozz.phplrt.language.psi.impl.PhplrtPsiImplUtil;
 import com.intellij.psi.PsiReference;
+import com.github.xepozz.phplrt.language.psi.stub.PhplrtRuleDeclarationStub;
+import com.intellij.psi.stubs.IStubElementType;
 
-public class PhplrtRuleDeclImpl extends PhplrtNamedElementImpl implements PhplrtRuleDecl {
+public class PhplrtRuleDeclImpl extends PhplrtRuleDeclarationBaseImpl implements PhplrtRuleDecl {
+
+  public PhplrtRuleDeclImpl(@NotNull PhplrtRuleDeclarationStub stub, @NotNull IStubElementType<?, ?> type) {
+    super(stub, type);
+  }
 
   public PhplrtRuleDeclImpl(@NotNull ASTNode node) {
     super(node);
@@ -42,9 +48,9 @@ public class PhplrtRuleDeclImpl extends PhplrtNamedElementImpl implements Phplrt
   }
 
   @Override
-  @Nullable
+  @NotNull
   public PhplrtIdentifier getIdentifier() {
-    return PsiTreeUtil.getChildOfType(this, PhplrtIdentifier.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, PhplrtIdentifier.class));
   }
 
   @Override

@@ -4,6 +4,7 @@ import com.github.xepozz.phplrt.language.psi.PhplrtElementFactory
 import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement
 import com.github.xepozz.phplrt.psi.PhplrtTypes
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReference
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 
 class PhplrtPsiImplUtil {
@@ -51,8 +52,8 @@ class PhplrtPsiImplUtil {
         fun setName(element: PhplrtNamedElement, name: String): PsiElement? {
             val keyNode = element.node.findChildByType(PhplrtTypes.IDENTIFIER)
             if (keyNode != null) {
-                val property = PhplrtElementFactory.createTokenDeclaration(element.project, name)
-                val newKeyNode = property?.firstChild?.node ?: return null
+                val property = PhplrtElementFactory.createMetaDeclaration(element.project, name)
+                val newKeyNode = property?.node?.findChildByType(PhplrtTypes.IDENTIFIER) ?: return null
                 element.node.replaceChild(keyNode, newKeyNode)
             }
 
@@ -60,6 +61,7 @@ class PhplrtPsiImplUtil {
         }
 
         @JvmStatic
-        fun getReferences(element: PhplrtNamedElement) = ReferenceProvidersRegistry.getReferencesFromProviders(element)
+        fun getReferences(element: PhplrtNamedElement): Array<out PsiReference> =
+            ReferenceProvidersRegistry.getReferencesFromProviders(element)
     }
 }

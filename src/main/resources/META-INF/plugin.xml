@@ -28,7 +28,7 @@
         <annotator
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrt.language.PhplrtAnnotator"/>
-        <stubElementTypeHolder class="com.github.xepozz.phplrt.psi.PhplrtTypes" externalIdPrefix=""/>
+        <stubElementTypeHolder class="com.github.xepozz.phplrt.psi.PhplrtTypes" externalIdPrefix="Phplrt."/>
         <multiHostInjector implementation="com.github.xepozz.phplrt.language.PhplrtLanguageInjector"/>
 
         <lang.braceMatcher
@@ -47,7 +47,7 @@
                 language="Phplrt"
                 implementationClass="com.github.xepozz.phplrt.ide.completion.PhplrtCompletionContributor"/>
 
-        <stubIndex implementation="com.github.xepozz.phplrt.language.PhplrtTokenStubIndex"/>
+        <stubIndex implementation="com.github.xepozz.phplrt.language.PhplrtStubIndex"/>
         <fileBasedIndex implementation="com.github.xepozz.phplrt.ide.index.PhplrtTokenIndex"/>
     </extensions>
 </idea-plugin>

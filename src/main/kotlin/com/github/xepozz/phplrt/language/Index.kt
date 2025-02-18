@@ -1,11 +1,13 @@
 package com.github.xepozz.phplrt.language
 
 import com.github.xepozz.phplrt.language.psi.PhplrtFile
-import com.github.xepozz.phplrt.language.psi.PhplrtMetaDeclarationStub
 import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement
+import com.github.xepozz.phplrt.language.psi.stub.PhplrtMetaDeclarationStub
+import com.github.xepozz.phplrt.language.psi.stub.PhplrtRuleDeclarationStub
 import com.github.xepozz.phplrt.psi.PhplrtMetaDecl
+import com.github.xepozz.phplrt.psi.PhplrtRuleDecl
 import com.github.xepozz.phplrt.psi.impl.PhplrtMetaDeclImpl
-import com.intellij.lang.ASTNode
+import com.github.xepozz.phplrt.psi.impl.PhplrtRuleDeclImpl
 import com.intellij.psi.PsiElement
 import com.intellij.psi.stubs.IStubElementType
 import com.intellij.psi.stubs.IndexSink
@@ -18,15 +20,12 @@ import com.intellij.psi.stubs.StubInputStream
 import com.intellij.psi.stubs.StubOutputStream
 import com.intellij.psi.tree.IStubFileElementType
 
-class PhplrtTokenStubIndex : StringStubIndexExtension<PhplrtNamedElement>() {
+class PhplrtStubIndex : StringStubIndexExtension<PhplrtNamedElement>() {
     companion object {
-        const val VERSION = 1
-        val KEY = StubIndexKey.createIndexKey<String, PhplrtNamedElement>("phplrt.token.name")
+        val KEY = StubIndexKey.createIndexKey<String, PhplrtNamedElement>("phplrt.index")
     }
 
-    override fun getVersion(): Int {
-        return VERSION
-    }
+    override fun getVersion() = 3
 
     override fun getKey() = KEY
 }
@@ -41,12 +40,12 @@ abstract class PhplrtStubElementType<S : StubElement<T>, T : PsiElement?>(debugN
     }
 }
 
-abstract class PhplrtNamedStubElementType<S : NamedStubBase<T>, T : PhplrtNamedElement>
-    (debugName: String) : PhplrtStubElementType<S, T>(debugName) {
+abstract class PhplrtNamedStubElementType<S : NamedStubBase<T>, T : PhplrtNamedElement>(debugName: String) :
+    PhplrtStubElementType<S, T>(debugName) {
     override fun indexStub(stub: S, sink: IndexSink) {
         val name = stub.name
         if (name != null) {
-            sink.occurrence(PhplrtTokenStubIndex.KEY, name)
+            sink.occurrence(PhplrtStubIndex.KEY, name)
         }
     }
 }
@@ -59,7 +58,7 @@ class PhplrtFileElementType(language: PhplrtLanguage?) : IStubFileElementType<Ph
 
     override fun deserialize(dataStream: StubInputStream, parentStub: StubElement<*>?) = PhplrtFileStub(null)
 
-//    override fun getExternalId(): String = super.externalId + ".FILE"
+    override fun getExternalId(): String = "Phplrt"
 
     companion object {
         @JvmField
@@ -69,12 +68,12 @@ class PhplrtFileElementType(language: PhplrtLanguage?) : IStubFileElementType<Ph
     }
 }
 
-class PhplrtTokenDeclarationStubElementType(debugName: String) :
+class PhplrtMetaDeclarationStubElementType(debugName: String) :
     PhplrtNamedStubElementType<PhplrtMetaDeclarationStub, PhplrtMetaDecl>(debugName) {
     override fun serialize(stub: PhplrtMetaDeclarationStub, dataStream: StubOutputStream) =
         dataStream.writeName(stub.name)
 
-    override fun shouldCreateStub(node: ASTNode?) = node?.psi is PhplrtMetaDecl
+//    override fun shouldCreateStub(node: ASTNode?) = node?.psi is PhplrtMetaDecl
 
     override fun deserialize(dataStream: StubInputStream, parentStub: StubElement<*>?) =
         PhplrtMetaDeclarationStub(parentStub, this, dataStream.readName())
@@ -83,5 +82,22 @@ class PhplrtTokenDeclarationStubElementType(debugName: String) :
 
     override fun createStub(psi: PhplrtMetaDecl, parentStub: StubElement<*>) =
         PhplrtMetaDeclarationStub(parentStub, this, psi.name)
+}
+
+
+class PhplrtRuleDeclarationStubElementType(debugName: String) :
+    PhplrtNamedStubElementType<PhplrtRuleDeclarationStub, PhplrtRuleDecl>(debugName) {
+    override fun serialize(stub: PhplrtRuleDeclarationStub, dataStream: StubOutputStream) =
+        dataStream.writeName(stub.name)
+
+//    override fun shouldCreateStub(node: ASTNode?) = node?.psi is com.github.xepozz.phplrt.psi.PhplrtRuleDecl
+
+    override fun deserialize(dataStream: StubInputStream, parentStub: StubElement<*>?) =
+        PhplrtRuleDeclarationStub(parentStub, this, dataStream.readName())
+
+    override fun createPsi(stub: PhplrtRuleDeclarationStub) = PhplrtRuleDeclImpl(stub, this)
+
+    override fun createStub(psi: PhplrtRuleDecl, parentStub: StubElement<*>) =
+        PhplrtRuleDeclarationStub(parentStub, this, psi.name)
 }
 

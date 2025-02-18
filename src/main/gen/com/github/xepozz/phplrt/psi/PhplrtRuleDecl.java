@@ -5,9 +5,11 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 import com.github.xepozz.phplrt.language.psi.PhplrtNamedElement;
+import com.intellij.psi.StubBasedPsiElement;
+import com.github.xepozz.phplrt.language.psi.stub.PhplrtRuleDeclarationStub;
 import com.intellij.psi.PsiReference;
 
-public interface PhplrtRuleDecl extends PhplrtNamedElement {
+public interface PhplrtRuleDecl extends PhplrtNamedElement, StubBasedPsiElement<PhplrtRuleDeclarationStub> {
 
   @Nullable
   PhplrtCode getCode();
@@ -15,7 +17,7 @@ public interface PhplrtRuleDecl extends PhplrtNamedElement {
   @Nullable
   PhplrtExpressions getExpressions();
 
-  @Nullable
+  @NotNull
   PhplrtIdentifier getIdentifier();
 
   @Nullable
