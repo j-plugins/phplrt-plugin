@@ -4,7 +4,6 @@ import com.intellij.psi.tree.IElementType;
 import com.github.xepozz.phplrt.psi.PhplrtTypes;
 import com.intellij.psi.TokenType;
 import com.intellij.lexer.FlexLexer;
-import com.jetbrains.php.lang.lexer.PhpCodeFragmentLexer;
 
 %%
 
