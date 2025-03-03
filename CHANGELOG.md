@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [2025.0.7] - 2025-03-03
+
+- feat: remove PHP module dependency
+- fix: obfuscation errors
+
 ## [2025.0.6] - 2025-02-21
 
 - feat: remove PHP module dependency
