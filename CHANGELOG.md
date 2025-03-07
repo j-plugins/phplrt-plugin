@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [2025.0.8] - 2025-03-08
+
+- fix: accessing field by not obfuscated name
+
 ## [2025.0.7] - 2025-03-03
 
 - feat: remove PHP module dependency

@@ -12,7 +12,6 @@
         <fileType
                 name="Phplrt File"
                 implementationClass="com.github.xepozz.phplrt.language.PhplrtFileType"
-                fieldName="INSTANCE"
                 language="Phplrt"
                 extensions="pp2"/>
         <lang.parserDefinition

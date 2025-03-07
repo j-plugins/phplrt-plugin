@@ -14,6 +14,7 @@ class PhplrtFileType private constructor() : LanguageFileType(PhplrtLanguage.INS
     override fun getIcon() = PhplrtIcons.FILE
 
     companion object {
+        @JvmStatic
         val INSTANCE = PhplrtFileType()
     }
 }
