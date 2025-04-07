@@ -45,13 +45,3 @@
 
 - feat: highlight syntax
 - feat: complete defined rules and metas
-
-[Unreleased]: https://github.com/xepozz/phplrt-plugin/compare/v2025.0.4...HEAD
-
-[2025.0.4]: https://github.com/xepozz/phplrt-plugin/compare/v2025.0.3...v2025.0.4
-
-[2025.0.3]: https://github.com/xepozz/phplrt-plugin/compare/v2025.0.2...v2025.0.3
-
-[2025.0.2]: https://github.com/xepozz/phplrt-plugin/compare/v2025.0.1...v2025.0.2
-
-[2025.0.1]: https://github.com/xepozz/phplrt-plugin/commits/v2025.0.1
