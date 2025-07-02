@@ -78,7 +78,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{JavaComment})+
 
 %state META_DECLARATION, RULE_DECLARATION
 %state WAITING_VALUE, WAITING_LITERAL, WAITING_PATH
-%state INLINE_CODE, BEFORE_INLINE_CODE, AFTER_INLINE_CODE
+%state INLINE_CODE, BEFORE_INLINE_CODE
 
 
 %%
@@ -111,11 +111,10 @@ JavaCode = ({JavaRest}|{StringLiteral}|{JavaComment})+
 }
 
 <BEFORE_INLINE_CODE> "{"                                        { yypushState(INLINE_CODE); }
-<AFTER_INLINE_CODE> "}"                                         { yypushState(RULE_DECLARATION); }
 
 <INLINE_CODE> {
   "{"        { braceCount++; }
-  "}"        { if (braceCount > 0) braceCount--; else { yypushback(1); yypushState(AFTER_INLINE_CODE); return PhplrtTypes.INLINE_CODE; } }
+  "}"        { if (braceCount > 0) braceCount--; else { yypushState(RULE_DECLARATION); return PhplrtTypes.INLINE_CODE; } }
   {JavaCode} {  }
 //  <<EOF>>    { nextState=REGEXPSTART; yybegin(REPORT_UNCLOSED); return FLEX_RAW; }
 }
