@@ -28,7 +28,7 @@ class PhplrtReferenceContributor : PsiReferenceContributor() {
             context: ProcessingContext
         ): Array<out PsiReference> {
             val element = element as? PhplrtNamedElement ?: return emptyArray()
-            println("rule reference $element")
+//            println("rule reference $element")
 
             return arrayOf(PhplrtReference(element))
         }

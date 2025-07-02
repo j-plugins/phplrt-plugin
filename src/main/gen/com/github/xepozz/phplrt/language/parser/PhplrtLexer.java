@@ -7,6 +7,7 @@ import com.intellij.psi.tree.IElementType;
 import com.github.xepozz.phplrt.psi.PhplrtTypes;
 import com.intellij.psi.TokenType;
 import com.intellij.lexer.FlexLexer;
+import java.util.Stack;
 
 
 public class PhplrtLexer implements FlexLexer {
@@ -428,7 +429,22 @@ public class PhplrtLexer implements FlexLexer {
   private boolean zzEOFDone;
 
   /* user code: */
- int braceCount;
+    int braceCount;
+    private Stack<Integer> stack = new Stack<>();
+
+    public void yycleanState(int newState) {
+        stack.clear();
+        yypushState(newState);
+    }
+
+    public void yypushState(int newState) {
+        stack.push(yystate());
+        yybegin(newState);
+    }
+
+    public void yypopState() {
+        yybegin(stack.pop());
+    }
 
 
   /**
@@ -696,27 +712,27 @@ public class PhplrtLexer implements FlexLexer {
           // fall through
           case 31: break;
           case 3:
-            { yybegin(RULE_DECLARATION); return PhplrtTypes.SHARP;
+            { yypushState(RULE_DECLARATION); return PhplrtTypes.SHARP;
             }
           // fall through
           case 32: break;
           case 4:
-            { yybegin(META_DECLARATION); return PhplrtTypes.META_START;
+            { yypushState(META_DECLARATION); return PhplrtTypes.META_START;
             }
           // fall through
           case 33: break;
           case 5:
-            { yybegin(RULE_DECLARATION); return PhplrtTypes.LITERAL;
+            { yypushState(RULE_DECLARATION); return PhplrtTypes.LITERAL;
             }
           // fall through
           case 34: break;
           case 6:
-            { yybegin(YYINITIAL); return PhplrtTypes.VALUE;
+            { yycleanState(YYINITIAL); return PhplrtTypes.VALUE;
             }
           // fall through
           case 35: break;
           case 7:
-            { yybegin(WAITING_VALUE); return PhplrtTypes.LITERAL;
+            { yypushState(WAITING_VALUE); return PhplrtTypes.LITERAL;
             }
           // fall through
           case 36: break;
@@ -746,7 +762,7 @@ public class PhplrtLexer implements FlexLexer {
           // fall through
           case 41: break;
           case 13:
-            { yybegin(YYINITIAL); return PhplrtTypes.SEMICOLON;
+            { yycleanState(YYINITIAL); return PhplrtTypes.SEMICOLON;
             }
           // fall through
           case 42: break;
@@ -781,27 +797,27 @@ public class PhplrtLexer implements FlexLexer {
           // fall through
           case 48: break;
           case 20:
-            { if (braceCount > 0) braceCount--; else { yybegin(AFTER_INLINE_CODE); return PhplrtTypes.INLINE_CODE; }
+            { if (braceCount > 0) braceCount--; else { yypushback(1); yypushState(AFTER_INLINE_CODE); return PhplrtTypes.INLINE_CODE; }
             }
           // fall through
           case 49: break;
           case 21:
-            { yybegin(INLINE_CODE);
+            { yypushState(INLINE_CODE);
             }
           // fall through
           case 50: break;
           case 22:
-            { yybegin(YYINITIAL);
+            { yypushState(RULE_DECLARATION);
             }
           // fall through
           case 51: break;
           case 23:
-            { yybegin(YYINITIAL); return PhplrtTypes.COMMENT;
+            { return PhplrtTypes.COMMENT;
             }
           // fall through
           case 52: break;
           case 24:
-            { yybegin(BEFORE_INLINE_CODE); return PhplrtTypes.CODE_DELIMITER;
+            { yypushState(BEFORE_INLINE_CODE); return PhplrtTypes.CODE_DELIMITER;
             }
           // fall through
           case 53: break;
@@ -811,22 +827,22 @@ public class PhplrtLexer implements FlexLexer {
           // fall through
           case 54: break;
           case 26:
-            { yybegin(WAITING_LITERAL); return PhplrtTypes.SKIP;
+            { yypushState(WAITING_LITERAL); return PhplrtTypes.SKIP;
             }
           // fall through
           case 55: break;
           case 27:
-            { yybegin(WAITING_LITERAL); return PhplrtTypes.TOKEN;
+            { yypushState(WAITING_LITERAL); return PhplrtTypes.TOKEN;
             }
           // fall through
           case 56: break;
           case 28:
-            { yybegin(WAITING_LITERAL); return PhplrtTypes.PRAGMA;
+            { yypushState(WAITING_LITERAL); return PhplrtTypes.PRAGMA;
             }
           // fall through
           case 57: break;
           case 29:
-            { yybegin(WAITING_LITERAL); return PhplrtTypes.INCLUDE;
+            { yypushState(WAITING_LITERAL); return PhplrtTypes.INCLUDE;
             }
           // fall through
           case 58: break;
