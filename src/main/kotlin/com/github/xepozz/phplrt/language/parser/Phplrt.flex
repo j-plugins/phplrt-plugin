@@ -130,7 +130,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{JavaComment})+
 }
 <WAITING_PATH> {
     {WHITE_SPACE}+                                               { return TokenType.WHITE_SPACE; }
-    [^{WHITE_SPACE}]+[^{WHITE_SPACE}]                            { yycleanState(YYINITIAL); return PhplrtTypes.VALUE; }
+    [^{WHITE_SPACE}{\r\n}]+                                      { yycleanState(YYINITIAL); return PhplrtTypes.VALUE; }
 }
 
 {END_OF_LINE_COMMENT}                                            { return PhplrtTypes.COMMENT; }
