@@ -84,8 +84,20 @@ JavaCode = ({JavaRest}|{StringLiteral}|{JavaComment})+
 <RULE_DECLARATION> {
     {LITERAL}                                                   { yybegin(RULE_DECLARATION); return PhplrtTypes.LITERAL; }
     {CODE_DELIMITER}                                            { yybegin(BEFORE_INLINE_CODE); return PhplrtTypes.CODE_DELIMITER; }
+    {COLON}                                                          { return PhplrtTypes.COLON; }
+    {LITERAL}                                                        { return PhplrtTypes.LITERAL; }
+    {SEMICOLON}                                                      { yybegin(YYINITIAL); return PhplrtTypes.SEMICOLON; }
+    {OP_OR}                                                          { return PhplrtTypes.OP_OR; }
+    {QUANTIFIER_ZERO_ONE}                                            { return PhplrtTypes.QUANTIFIER_ZERO_ONE; }
+    {QUANTIFIER_ANY}                                                 { return PhplrtTypes.QUANTIFIER_ANY; }
+    {QUANTIFIER_ONE_INFINITE}                                        { return PhplrtTypes.QUANTIFIER_ONE_INFINITE; }
+    {PARENTHESES_OPEN}                                               { return PhplrtTypes.PARENTHESES_OPEN; }
+    {PARENTHESES_CLOSE}                                              { return PhplrtTypes.PARENTHESES_CLOSE; }
+    {DOUBLE_COLON}                                                   { return PhplrtTypes.DOUBLE_COLON; }
+    {LEFT_ARROW}                                                     { return PhplrtTypes.LEFT_ARROW; }
+    {RIGHT_ARROW}                                                    { return PhplrtTypes.RIGHT_ARROW; }
+
 }
-{COLON}                                                         { return PhplrtTypes.COLON; }
 
 <BEFORE_INLINE_CODE> "{"                                        { yybegin(INLINE_CODE); }
 <AFTER_INLINE_CODE> "}"                                         { yybegin(YYINITIAL); }
@@ -99,25 +111,15 @@ JavaCode = ({JavaRest}|{StringLiteral}|{JavaComment})+
 
 [ \t\f\s\n]+                                                     { return TokenType.WHITE_SPACE; }
 
-<YYINITIAL> {END_OF_LINE_COMMENT}                                { yybegin(YYINITIAL); return PhplrtTypes.COMMENT; }
-<YYINITIAL> {MULTILINE_COMMENT}                                  { yybegin(YYINITIAL); return PhplrtTypes.COMMENT; }
 //<YYINITIAL> {NEWLINE}                                            { yybegin(YYINITIAL); return PhplrtTypes.NEWLINE; }
 
 <WAITING_LITERAL> {LITERAL}                                      { yybegin(WAITING_VALUE); return PhplrtTypes.LITERAL; }
-<WAITING_VALUE> {WHITE_SPACE}+                                   { return TokenType.WHITE_SPACE; }
-<WAITING_VALUE> {VALUE}                                          { yybegin(YYINITIAL); return PhplrtTypes.VALUE; }
+<WAITING_VALUE> {
+    {WHITE_SPACE}+                                               { return TokenType.WHITE_SPACE; }
+    [^\r\n]+                                                      { yybegin(YYINITIAL); return PhplrtTypes.VALUE; }
+}
 
-
-{LITERAL}                                                        { return PhplrtTypes.LITERAL; }
-{SEMICOLON}                                                      { yybegin(YYINITIAL); return PhplrtTypes.SEMICOLON; }
-{OP_OR}                                                          { return PhplrtTypes.OP_OR; }
-{QUANTIFIER_ZERO_ONE}                                            { return PhplrtTypes.QUANTIFIER_ZERO_ONE; }
-{QUANTIFIER_ANY}                                                 { return PhplrtTypes.QUANTIFIER_ANY; }
-{QUANTIFIER_ONE_INFINITE}                                        { return PhplrtTypes.QUANTIFIER_ONE_INFINITE; }
-{PARENTHESES_OPEN}                                               { return PhplrtTypes.PARENTHESES_OPEN; }
-{PARENTHESES_CLOSE}                                              { return PhplrtTypes.PARENTHESES_CLOSE; }
-{DOUBLE_COLON}                                                   { return PhplrtTypes.DOUBLE_COLON; }
-{LEFT_ARROW}                                                     { return PhplrtTypes.LEFT_ARROW; }
-{RIGHT_ARROW}                                                    { return PhplrtTypes.RIGHT_ARROW; }
+{END_OF_LINE_COMMENT}                                       { yybegin(YYINITIAL); return PhplrtTypes.COMMENT; }
+{MULTILINE_COMMENT}                                         { yybegin(YYINITIAL); return PhplrtTypes.COMMENT; }
 
 [^]                                                              { return TokenType.BAD_CHARACTER; }
