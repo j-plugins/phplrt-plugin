@@ -62,7 +62,7 @@ VALUE=[^\s\n]+
 //VALUE=[^\s\h\t \r].*
 LITERAL=[A-Za-z_][A-Za-z0-9_]*
 END_OF_LINE_COMMENT="//"[^\n]*[^\n]?
-MULTILINE_COMMENT="/**"[\s\S]*?"*/"
+MULTILINE_COMMENT = "/**"([^*]|"*"[^/])*"*/"
 
 NNL        = [^\u2028\u2029\u000A\u000B\u000C\u000D\u0085]
 
@@ -76,10 +76,8 @@ JavaRest = [^\{\}\"\'/]|"/"[^*/]
 JavaCode = ({JavaRest}|{StringLiteral}|{JavaComment})+
 
 
-%state WAITING_VALUE
-%state WAITING_LITERAL
-%state META_DECLARATION
-%state RULE_DECLARATION
+%state META_DECLARATION, RULE_DECLARATION
+%state WAITING_VALUE, WAITING_LITERAL, WAITING_PATH
 %state INLINE_CODE, BEFORE_INLINE_CODE, AFTER_INLINE_CODE
 
 
@@ -94,13 +92,12 @@ JavaCode = ({JavaRest}|{StringLiteral}|{JavaComment})+
     "token"                                                     { yypushState(WAITING_LITERAL); return PhplrtTypes.TOKEN; }
     "skip"                                                      { yypushState(WAITING_LITERAL); return PhplrtTypes.SKIP; }
     "pragma"                                                    { yypushState(WAITING_LITERAL); return PhplrtTypes.PRAGMA; }
-    "include"                                                   { yypushState(WAITING_LITERAL); return PhplrtTypes.INCLUDE; }
+    "include"                                                   { yypushState(WAITING_PATH); return PhplrtTypes.INCLUDE; }
 }
 <RULE_DECLARATION> {
     {LITERAL}                                                   { yypushState(RULE_DECLARATION); return PhplrtTypes.LITERAL; }
     {CODE_DELIMITER}                                            { yypushState(BEFORE_INLINE_CODE); return PhplrtTypes.CODE_DELIMITER; }
     {COLON}                                                     { return PhplrtTypes.COLON; }
-    {LITERAL}                                                   { return PhplrtTypes.LITERAL; }
     {SEMICOLON}                                                 { yycleanState(YYINITIAL); return PhplrtTypes.SEMICOLON; }
     {OP_OR}                                                     { return PhplrtTypes.OP_OR; }
     {QUANTIFIER_ZERO_ONE}                                       { return PhplrtTypes.QUANTIFIER_ZERO_ONE; }
@@ -131,6 +128,10 @@ JavaCode = ({JavaRest}|{StringLiteral}|{JavaComment})+
 <WAITING_VALUE> {
     {WHITE_SPACE}+                                               { return TokenType.WHITE_SPACE; }
     [^\r\n]+                                                     { yycleanState(YYINITIAL); return PhplrtTypes.VALUE; }
+}
+<WAITING_PATH> {
+    {WHITE_SPACE}+                                               { return TokenType.WHITE_SPACE; }
+    [^{WHITE_SPACE}]+[^{WHITE_SPACE}]                            { yycleanState(YYINITIAL); return PhplrtTypes.VALUE; }
 }
 
 {END_OF_LINE_COMMENT}                                            { return PhplrtTypes.COMMENT; }
